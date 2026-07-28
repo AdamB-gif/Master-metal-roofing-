@@ -390,7 +390,7 @@ def page(path, title, meta_desc, body, schemas=(), noindex=False, extra_head="")
 <html lang="en-US">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{meta_desc}">
 <link rel="canonical" href="{canonical}">
