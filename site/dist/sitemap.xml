@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://{{DOMAIN}}/</loc><priority>1.0</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/metal-roofing/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/standing-seam-metal-roofing/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/board-and-batten-metal-siding/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/metal-roof-replacement/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/services/metal-roof-repair/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/</loc><priority>0.9</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/bluefield-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/richlands-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/pounding-mill-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/tazewell-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/about/</loc><priority>0.8</priority></url>
+  <url><loc>https://{{DOMAIN}}/gallery/</loc><priority>0.8</priority></url>
+  <url><loc>https://{{DOMAIN}}/contact/</loc><priority>0.7</priority></url>
+  <url><loc>https://{{DOMAIN}}/free-estimate/</loc><priority>1.0</priority></url>
+</urlset>
