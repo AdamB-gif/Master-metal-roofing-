@@ -2,10 +2,14 @@
    Rugged, clean, unmistakably local. See ../../08-design-system.md */
 
 :root {
-  --navy-900: #14202F;
-  --navy-800: #1B2A41;
-  --navy-600: #2E4363;
-  --navy-100: #E8EDF4;
+  /* Derived from the owner's logo mark (steel blue #5096D1) — see
+     site/static/images/logo/. Darker/lighter steps hold the same hue
+     so header, footer, and text all read as one brand color. */
+  --navy-900: #0F2539;
+  --navy-800: #173B59;
+  --navy-600: #2D6B9F;
+  --navy-100: #EBF0F5;
+  --logo-blue: #5096D1;
 
   --accent-600: #B7410E;
   --accent-500: #D4551C;
@@ -37,6 +41,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+svg { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; overflow: visible; }
+.nav-link svg, .card-link svg { width: 0.8em; height: 0.8em; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -114,8 +120,7 @@ section { padding: var(--space-8) 0; }
 @media (min-width: 1024px) { .site-header { height: 72px; } }
 .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: var(--space-4); }
 .brand { display: flex; align-items: center; gap: var(--space-2); text-decoration: none; color: var(--navy-800); font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
-.brand-mark { width: 36px; height: 36px; border-radius: 6px; background: var(--navy-800); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; flex: none; }
-.brand-mark svg { width: 20px; height: 20px; }
+.brand-mark { width: 36px; height: 36px; object-fit: contain; flex: none; }
 
 .main-nav { display: none; }
 @media (min-width: 1024px) {
@@ -133,6 +138,10 @@ section { padding: var(--space-8) 0; }
 .header-actions { display: flex; align-items: center; gap: var(--space-3); }
 .header-phone { display: none; align-items: center; gap: var(--space-2); text-decoration: none; color: var(--navy-800); font-weight: 700; white-space: nowrap; }
 @media (min-width: 640px) { .header-phone { display: inline-flex; } }
+/* Below 768px the sticky mobile CTA bar already covers Call/Free Estimate — the header
+   only needs logo + hamburger, or the button wraps and breaks out of the fixed-height bar. */
+.header-actions .btn-primary { display: none; }
+@media (min-width: 768px) { .header-actions .btn-primary { display: inline-flex; } }
 .hamburger { display: inline-flex; background: none; border: none; padding: var(--space-2); cursor: pointer; }
 @media (min-width: 1024px) { .hamburger { display: none; } }
 .hamburger svg { width: 26px; height: 26px; color: var(--navy-800); }
@@ -161,6 +170,8 @@ section { padding: var(--space-8) 0; }
 .mobile-cta-bar a { flex: 1 1 50%; display: flex; align-items: center; justify-content: center; gap: var(--space-2); text-decoration: none; font-weight: 700; font-size: 1rem; }
 .mobile-cta-bar .call { background: var(--navy-800); color: var(--white); }
 .mobile-cta-bar .estimate { background: var(--accent-600); color: var(--white); }
+.mobile-cta-bar svg { width: 1.1em; height: 1.1em; }
+.header-phone svg { width: 1em; height: 1em; }
 
 /* Hero */
 .hero { position: relative; display: flex; align-items: flex-end; min-height: 60vh; color: var(--white); background: linear-gradient(rgba(20,32,47,0.82), rgba(20,32,47,0.6)), var(--navy-900); background-size: cover; background-position: center; }
@@ -264,6 +275,8 @@ section { padding: var(--space-8) 0; }
 
 /* Placeholder fact chip */
 .fact-ph { display: inline-block; border-bottom: 2px dashed var(--accent-500); color: var(--accent-600); font-weight: 600; white-space: nowrap; }
+/* Accent-orange placeholder text is illegible on the accent-orange CTA bands — switch to white there. */
+.section-accent .fact-ph { color: var(--white); border-bottom-color: rgba(255,255,255,.75); }
 
 /* Notice banner (dev-only, marks placeholder content) */
 .dev-banner { background: var(--navy-900); color: var(--steel-100); font-size: 0.8125rem; text-align: center; padding: 10px var(--space-4); }
@@ -276,8 +289,8 @@ section { padding: var(--space-8) 0; }
 @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
 .footer-grid h4 { color: var(--white); font-size: 1rem; margin-bottom: var(--space-4); }
 .footer-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
-.footer-grid a { color: var(--steel-300); text-decoration: none; font-size: 0.9375rem; }
-.footer-grid a:hover { color: var(--white); }
+.footer-grid a, .footer-grid .link-list a { color: var(--steel-300); text-decoration: none; font-size: 0.9375rem; font-weight: 400; }
+.footer-grid a:hover, .footer-grid .link-list a:hover { color: var(--white); }
 .footer-brand p { color: var(--steel-300); font-size: 0.9375rem; }
 .footer-contact { list-style: none; margin: var(--space-4) 0; padding: 0; display: grid; gap: var(--space-2); }
 .footer-contact a { color: var(--white); font-weight: 600; text-decoration: none; }

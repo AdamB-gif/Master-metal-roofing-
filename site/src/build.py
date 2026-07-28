@@ -41,7 +41,7 @@ def build_home():
             f"across Bluefield, Richlands, Pounding Mill & Tazewell County, VA. Family owned, "
             f"licensed & insured. Free estimates. {t.meta_call_cta()}")
 
-    hero = f'''<section class="hero">
+    hero = f'''<section class="hero" id="hero">
     <div class="container hero-inner">
       <h1>Metal Roofing in Tazewell County, Virginia</h1>
       <p class="lede">Metal roofs, metal siding, and board &amp; batten for homes and small
@@ -52,7 +52,7 @@ def build_home():
     </div>
   </section>'''
 
-    services = f'''<section class="section-white">
+    services = f'''<section class="section-white" id="services-grid">
     <div class="container">
       <div class="section-head"><h2>What We Build</h2></div>
       <div class="grid grid-3">
@@ -67,7 +67,7 @@ def build_home():
     </div>
   </section>'''
 
-    why = f'''<section class="section-tint">
+    why = f'''<section class="section-tint" id="why">
     <div class="container">
       <div class="section-head"><h2>Why Neighbors Around Here Call Us First</h2></div>
       <div class="grid grid-3">
@@ -92,7 +92,7 @@ def build_home():
     </div>
   </section>'''
 
-    area = f'''<section class="section-white">
+    area = f'''<section class="section-white" id="area">
     <div class="container">
       <div class="split">
         <div>
@@ -106,7 +106,7 @@ def build_home():
     </div>
   </section>'''
 
-    recent = f'''<section class="section-tint">
+    recent = f'''<section class="section-tint" id="recent">
     <div class="container">
       <div class="section-head"><h2>Recent Projects</h2></div>
       <div class="grid grid-4">
@@ -119,7 +119,7 @@ def build_home():
     </div>
   </section>'''
 
-    batten = f'''<section class="section-white">
+    batten = f'''<section class="section-white" id="batten">
     <div class="container">
       <div class="split reverse">
         {t.photo_placeholder("Board & batten metal siding", "Project photo")}
@@ -137,7 +137,7 @@ def build_home():
     </div>
   </section>'''
 
-    process = f'''<section class="section-tint">
+    process = f'''<section class="section-tint" id="process">
     <div class="container">
       <div class="section-head"><h2>How It Works</h2></div>
       {t.steps_html([
@@ -149,14 +149,14 @@ def build_home():
     </div>
   </section>'''
 
-    faq = f'''<section class="section-white">
+    faq = f'''<section class="section-white" id="faq">
     <div class="container">
       <div class="section-head"><h2>Common Questions</h2></div>
       {t.faq_block(d.HOME_FAQ)}
     </div>
   </section>'''
 
-    final_cta = f'''<section class="section-accent">
+    final_cta = f'''<section class="section-accent" id="final-cta">
     <div class="container text-center">
       <h2>Free Estimates in Tazewell County and Beyond</h2>
       <p style="max-width:60ch;margin:0 auto var(--space-6);">Call us or send the form — either
@@ -1111,14 +1111,6 @@ def build_404():
 # TECHNICAL FILES
 # ======================================================================
 
-def build_favicon():
-    svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#1B2A41"/>
-  <path d="M12 34 32 16l20 18" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M18 32v16h28V32" fill="none" stroke="#B7410E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>'''
-    write_raw("favicon.svg", svg)
-
 
 def build_robots():
     write_raw("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /thank-you/\n\nSitemap: https://{d.DOMAIN}/sitemap.xml\n")
@@ -1283,7 +1275,6 @@ def main():
     build_free_estimate()
     build_thank_you()
     build_404()
-    build_favicon()
     build_robots()
     build_sitemap()
     build_js()

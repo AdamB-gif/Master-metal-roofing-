@@ -24,7 +24,7 @@ Every factual claim on the website must trace to this file. Three states:
 | VA contractor license # | `{{VA_LICENSE_NUMBER}}` | placeholder |
 | Insurance carrier / COI available | `{{INSURANCE}}` | placeholder |
 | Owner name | `{{OWNER_NAME}}` | placeholder |
-| Logo files | `{{LOGO}}` — see `09-assets-and-images.md` | placeholder |
+| Logo files | Provided by owner 2026-07-28, `site/static/images/logo/`. Site color palette rebuilt around its blue (`#5096D1`, see `08-design-system.md`). | CONFIRMED |
 
 > **Address decision:** the owner is supplying the address later. Until then, build the site as a **service-area business (SAB)**: no address in the footer, no `PostalAddress` in schema, `areaServed` defined by town list instead. This is the correct configuration for a contractor who travels to customers and matches how the Google Business Profile should be set up. See `06-schema-markup.md` for the SAB variant of the JSON-LD, and `13-google-business-profile.md` for why hiding the address on GBP matters.
 

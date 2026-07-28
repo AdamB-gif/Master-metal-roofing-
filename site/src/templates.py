@@ -1,6 +1,9 @@
 import json
 import re
+import time
 import data as d
+
+BUILD_VERSION = str(int(time.time()))
 
 # ---------------------------------------------------------------- icons ---
 
@@ -173,7 +176,7 @@ def header_html():
     return f'''<header class="site-header" id="site-header">
     <div class="container header-inner">
       <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">{icon("roof")}</span>
+        <img class="brand-mark" src="/images/logo/metal-master-roof-mark-transparent.png" alt="" width="36" height="36">
         {d.BRAND}
       </a>
       <nav class="main-nav" aria-label="Primary">
@@ -197,7 +200,7 @@ def header_html():
   <div class="mobile-drawer" id="mobile-drawer">
     <div class="mobile-drawer-head">
       <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">{icon("roof")}</span>{d.BRAND}
+        <img class="brand-mark" src="/images/logo/metal-master-roof-mark-transparent.png" alt="" width="36" height="36">{d.BRAND}
       </a>
       <button class="close-btn" id="drawer-close-btn" aria-label="Close menu">{icon("close")}</button>
     </div>
@@ -228,7 +231,7 @@ def footer_html():
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand" href="/" style="color:var(--white);margin-bottom:var(--space-3);">
-          <span class="brand-mark" aria-hidden="true">{icon("roof")}</span>{d.BRAND}
+          <img class="brand-mark" src="/images/logo/metal-master-roof-mark-transparent.png" alt="" width="36" height="36">{d.BRAND}
         </a>
         <p>{d.ONE_LINER}</p>
         <ul class="footer-contact">
@@ -347,8 +350,10 @@ def page(path, title, meta_desc, body, schemas=(), noindex=False):
 <meta name="description" content="{meta_desc}">
 <link rel="canonical" href="{canonical}">
 {robots}
-<meta name="theme-color" content="#1B2A41">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#173B59">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{meta_desc}">
@@ -356,7 +361,7 @@ def page(path, title, meta_desc, body, schemas=(), noindex=False):
 <meta property="og:site_name" content="{d.BRAND_FULL}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/styles.css?v={BUILD_VERSION}">
 {schema_scripts(*schemas)}
 </head>
 <body>
@@ -367,6 +372,6 @@ def page(path, title, meta_desc, body, schemas=(), noindex=False):
 </main>
 {footer_html()}
 {mobile_cta_bar()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v={BUILD_VERSION}" defer></script>
 </body>
 </html>'''
