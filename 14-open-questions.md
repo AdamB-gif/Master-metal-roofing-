@@ -17,7 +17,7 @@ Everything the developer needs and does not have. Grouped by urgency.
 | 5 | **Virginia contractor license number and class?** (Class B is likely, given the $150k ceiling — please confirm both.) | `{{VA_LICENSE_NUMBER}}` `{{LICENSE_CLASS}}` |
 | 6 | **Do you carry general liability and workers' comp?** Can we say so on the site? | `{{INSURANCE}}` |
 | 7 | **"Board and batten"** — do you mean board-and-batten *metal siding*, traditional *wood* board and batten, or both? This changes an entire page. | — |
-| 8 | **Project photos.** See the export instructions in `09-assets-and-images.md`. How many do you have? | `{{PHOTO_COUNT}}` |
+| 8 | ~~**Project photos.**~~ — ✅ 27 received 2026-07-28, 26 integrated into the site (1 duplicate, 1 excluded for a visible license plate — see `09-assets-and-images.md`). Still needed: **town, exact service, color, and any notable detail for each photo** so they can move onto location pages and get proper alt text. | `{{PHOTO_TOWNS}}` |
 | 9 | ~~**Logo files**~~ — ✅ provided 2026-07-28, in use across the site. | done |
 | 10 | **Do you work in West Virginia?** If yes, are you licensed there? WV requires its own contractor license. If no, we delete the Bluefield WV, Princeton, and Bramwell pages. | `{{WV_LICENSED}}` |
 | 11 | **Does a Google Business Profile already exist?** Claimed and verified? | `{{GBP_STATUS}}` |

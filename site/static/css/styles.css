@@ -59,7 +59,7 @@ body {
 }
 @media (min-width: 768px) { body { padding-bottom: 0; } }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -183,6 +183,12 @@ section { padding: var(--space-8) 0; }
   background-size: cover, auto, cover; background-position: center;
 }
 @media (min-width: 1024px) { .hero { min-height: 75vh; } }
+.hero.has-photo {
+  background:
+    linear-gradient(rgba(20,32,47,0.78), rgba(20,32,47,0.5)),
+    var(--hero-photo-url);
+  background-size: cover; background-position: center 65%;
+}
 .hero-inner { padding: var(--space-8) 0; width: 100%; }
 .hero h1 { color: var(--white); max-width: 900px; }
 .hero .lede { max-width: 640px; font-size: 1.1875rem; color: var(--steel-100); }
@@ -236,6 +242,28 @@ section { padding: var(--space-8) 0; }
 .gallery-figure { margin: 0; }
 .gallery-figure figcaption { padding: var(--space-3) var(--space-4); font-size: 0.875rem; color: var(--steel-600); background: var(--white); border: 1px solid var(--steel-300); border-top: none; border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg); }
 
+/* Real photos (gallery cards / service cards) — fixed 4:3 crop so grids don't jump */
+.gallery-figure picture, .card picture { display: block; }
+.gallery-photo, .card-photo { aspect-ratio: 4 / 3; width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-figure:hover .gallery-photo, .card:hover .card-photo { transform: scale(1.03); }
+.gallery-photo, .card-photo { transition: transform 300ms ease; }
+@media (prefers-reduced-motion: reduce) { .gallery-photo, .card-photo { transition: none; } }
+
+/* Before / after — side by side on desktop, stacked on mobile (08-design-system.md) */
+.before-after { display: grid; grid-template-columns: 1fr; gap: var(--space-3); margin: 0; position: relative; }
+@media (min-width: 768px) { .before-after { grid-template-columns: 1fr 1fr; } }
+.before-after .ba-item { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
+.before-after .ba-photo { aspect-ratio: 4 / 3; width: 100%; height: 100%; object-fit: cover; display: block; }
+.before-after .ba-label {
+  position: absolute; top: var(--space-3); left: var(--space-3); z-index: 1;
+  background: var(--navy-900); color: var(--white); font-family: var(--font-display);
+  font-weight: 700; font-size: 0.8125rem; letter-spacing: .04em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+}
+.before-after .ba-item:last-child .ba-label { background: var(--accent-600); }
+.before-after figcaption { grid-column: 1 / -1; text-align: center; font-weight: 600; color: var(--navy-800); margin-top: var(--space-2); }
+.before-after-grid { display: grid; gap: var(--space-8); }
+
 /* Split layout */
 .split { display: grid; gap: var(--space-7); align-items: center; grid-template-columns: 1fr; }
 @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; } .split.reverse > *:first-child { order: 2; } }
@@ -283,7 +311,7 @@ section { padding: var(--space-8) 0; }
 .filter-btn.is-active, .filter-btn:hover { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
 
 /* Placeholder fact chip */
-.fact-ph { display: inline-block; border-bottom: 2px dashed var(--accent-500); color: var(--accent-600); font-weight: 600; white-space: nowrap; }
+.fact-ph { display: inline; border-bottom: 2px dashed var(--accent-500); color: var(--accent-600); font-weight: 600; }
 /* Accent-orange placeholder text is illegible on the accent-orange CTA bands — switch to white there. */
 .section-accent .fact-ph { color: var(--white); border-bottom-color: rgba(255,255,255,.75); }
 

@@ -141,6 +141,51 @@ def gallery_item(label, tag, service_url, area_url, categories, town):
     <figcaption>{label} &middot; <a href="{service_url}">{tag}</a> &middot; <a href="{area_url}">{town.replace('-', ' ').title()}</a></figcaption>
   </figure>'''
 
+# ------------------------------------------------------- real photos ---
+
+IMG_STEP_WIDTHS = [400, 800, 1200, 1600, 1920]
+
+def project_picture(pid, sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw",
+                     cls="", loading="lazy", fetchpriority=None):
+    """<picture> with WebP + JPEG srcset for a real project photo. See data.PROJECTS."""
+    p = d.project(pid)
+    widths = sorted({w for w in IMG_STEP_WIDTHS if w <= p["max_w"]} | {p["max_w"]})
+    base_url = f'/images/{p["folder"]}/{p["base"]}'
+    webp_srcset = ", ".join(f'{base_url}-{w}.webp {w}w' for w in widths)
+    jpg_srcset = ", ".join(f'{base_url}-{w}.jpg {w}w' for w in widths)
+    default_w = widths[-1]
+    fp_attr = f' fetchpriority="{fetchpriority}"' if fetchpriority else ""
+    load_attr = "" if fetchpriority == "high" else f' loading="{loading}"'
+    return f'''<picture>
+      <source type="image/webp" srcset="{webp_srcset}" sizes="{sizes}">
+      <img class="{cls}" src="{base_url}-{default_w}.jpg" srcset="{jpg_srcset}" sizes="{sizes}" width="{p['w']}" height="{p['h']}" alt="{p['alt']}"{load_attr}{fp_attr}>
+    </picture>'''
+
+def real_gallery_item(pid, caption_html, categories):
+    p = d.project(pid)
+    return f'''<figure class="gallery-figure card" data-service="{categories}">
+    {project_picture(pid, cls="gallery-photo")}
+    <figcaption>{caption_html}</figcaption>
+  </figure>'''
+
+def real_card(pid, title, url, desc):
+    return f'''<article class="card">
+    {project_picture(pid, cls="card-photo")}
+    <div class="card-body">
+      <h3><a href="{url}" class="card-link" style="color:inherit;text-decoration:none;">{title}</a></h3>
+      <p>{desc}</p>
+      <a class="card-link" href="{url}" aria-hidden="true">Learn more &rarr;</a>
+    </div>
+  </article>'''
+
+def before_after_block(pair_key):
+    pair = next(x for x in d.BEFORE_AFTER_PAIRS if x["key"] == pair_key)
+    return f'''<figure class="before-after">
+    <div class="ba-item"><span class="ba-label">Before</span>{project_picture(pair["before"], cls="ba-photo", sizes="(min-width: 768px) 50vw, 100vw")}</div>
+    <div class="ba-item"><span class="ba-label">After</span>{project_picture(pair["after"], cls="ba-photo", sizes="(min-width: 768px) 50vw, 100vw")}</div>
+    <figcaption>{pair["label"]}</figcaption>
+  </figure>'''
+
 def card(title, url, desc, tag="Project photo"):
     return f'''<article class="card">
     {photo_placeholder(title, tag)}
@@ -338,7 +383,7 @@ def schema_scripts(*schemas):
 
 # ---------------------------------------------------------------- layout --
 
-def page(path, title, meta_desc, body, schemas=(), noindex=False):
+def page(path, title, meta_desc, body, schemas=(), noindex=False, extra_head=""):
     canonical = f"https://{d.DOMAIN}{path}"
     robots = '<meta name="robots" content="noindex,follow">' if noindex else ""
     return f'''<!doctype html>
@@ -363,6 +408,7 @@ def page(path, title, meta_desc, body, schemas=(), noindex=False):
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css?v={BUILD_VERSION}">
 {schema_scripts(*schemas)}
+{extra_head}
 </head>
 <body>
 {dev_banner()}

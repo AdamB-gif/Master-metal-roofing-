@@ -41,7 +41,12 @@ def build_home():
             f"across Bluefield, Richlands, Pounding Mill & Tazewell County, VA. Family owned, "
             f"licensed & insured. Free estimates. {t.meta_call_cta()}")
 
-    hero = f'''<section class="hero" id="hero">
+    _hero_p = d.project("roof-green-standing-seam")
+    _hero_url = f'/images/{_hero_p["folder"]}/{_hero_p["base"]}-{_hero_p["max_w"]}.jpg'
+    hero_preload = (
+        f'<link rel="preload" as="image" href="{_hero_url}" fetchpriority="high">'
+    )
+    hero = f'''<section class="hero has-photo" id="hero" style="--hero-photo-url:url('{_hero_url}');">
     <div class="container hero-inner">
       <h1>Metal Roofing in Tazewell County, Virginia</h1>
       <p class="lede">Metal roofs, metal siding, and board &amp; batten for homes and small
@@ -56,12 +61,12 @@ def build_home():
     <div class="container">
       <div class="section-head"><h2>What We Build</h2></div>
       <div class="grid grid-3">
-        {t.card("Metal Roofing", "/services/metal-roofing/", "The roof that outlives the mortgage — standing seam or exposed fastener, built for these mountains.")}
-        {t.card("Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, no exposed screws, and nothing on the surface to fail in twenty years.")}
-        {t.card("Board & Batten Siding", "/services/board-and-batten-metal-siding/", "The farmhouse look that's been on barns around here for two hundred years — now in steel.")}
-        {t.card("Roof Replacement", "/services/metal-roof-replacement/", "From worn-out shingles to a metal roof, often without a full tear-off.")}
-        {t.card("Roof Repair", "/services/metal-roof-repair/", "Leaks, backed-out screws, flashing, and valley problems — diagnosed straight.")}
-        {t.card("Commercial", "/services/commercial-metal-roofing/", "Churches, shops, storefronts, and small offices — projects up to $150,000.")}
+        {t.real_card("roof-eave-detail", "Metal Roofing", "/services/metal-roofing/", "The roof that outlives the mortgage — standing seam or exposed fastener, built for these mountains.")}
+        {t.real_card("roof-pewter-detail", "Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, no exposed screws, and nothing on the surface to fail in twenty years.")}
+        {t.real_card("roof-siding-remodel", "Board & Batten Siding", "/services/board-and-batten-metal-siding/", "The farmhouse look that's been on barns around here for two hundred years — now in steel.")}
+        {t.real_card("roof-tearoff-progress", "Roof Replacement", "/services/metal-roof-replacement/", "From worn-out shingles to a metal roof, often without a full tear-off.")}
+        {t.real_card("barn-door-repair", "Roof Repair", "/services/metal-roof-repair/", "Leaks, backed-out screws, flashing, and valley problems — diagnosed straight.")}
+        {t.real_card("pole-barn-02", "Commercial", "/services/commercial-metal-roofing/", "Churches, shops, storefronts, and small offices — projects up to $150,000.")}
       </div>
       <p class="text-center" style="margin-top:var(--space-7);"><a class="btn btn-secondary" href="/services/">View All Services &rarr;</a></p>
     </div>
@@ -110,10 +115,10 @@ def build_home():
     <div class="container">
       <div class="section-head"><h2>Recent Projects</h2></div>
       <div class="grid grid-4">
-        {t.gallery_item("Standing seam roof", "Richlands, VA", "/services/standing-seam-metal-roofing/", "/service-areas/richlands-va/", "roofing", "richlands")}
-        {t.gallery_item("Board & batten siding", "Pounding Mill, VA", "/services/board-and-batten-metal-siding/", "/service-areas/pounding-mill-va/", "siding", "pounding-mill")}
-        {t.gallery_item("Exposed fastener roof", "Bluefield, VA", "/services/metal-roofing/", "/service-areas/bluefield-va/", "roofing", "bluefield")}
-        {t.gallery_item("Shingle-to-metal replacement", "Tazewell, VA", "/services/metal-roof-replacement/", "/service-areas/tazewell-va/", "roofing", "tazewell")}
+        {t.real_gallery_item("roof-pewter-after-01", "Standing seam roof &middot; pewter", "roofing")}
+        {t.real_gallery_item("carport-porch-02", "Covered carport &amp; porch", "carport")}
+        {t.real_gallery_item("carport-bronze-01", "Custom timber-frame carport", "carport")}
+        {t.real_gallery_item("roof-burgundy-after-01", "Standing seam roof &middot; burgundy", "roofing")}
       </div>
       <p class="text-center" style="margin-top:var(--space-7);"><a class="btn btn-secondary" href="/gallery/">See the Full Gallery &rarr;</a></p>
     </div>
@@ -122,7 +127,7 @@ def build_home():
     batten = f'''<section class="section-white" id="batten">
     <div class="container">
       <div class="split reverse">
-        {t.photo_placeholder("Board & batten metal siding", "Project photo")}
+        {t.project_picture("roof-siding-remodel", sizes="(min-width: 1024px) 50vw, 100vw")}
         <div>
           <h2>Board &amp; Batten, Done in Metal</h2>
           <p>Board and batten gives you the vertical farmhouse-and-barn look that's been on
@@ -170,7 +175,7 @@ def build_home():
 
     body = hero + services + why + area + recent + batten + process + faq + final_cta
     schemas = [t.business_schema(), t.website_schema(), t.faq_schema(d.HOME_FAQ)]
-    write_page(url, t.page(url, title, desc, body, schemas), priority="1.0")
+    write_page(url, t.page(url, title, desc, body, schemas, extra_head=hero_preload), priority="1.0")
 
 
 # ======================================================================
@@ -203,20 +208,23 @@ def build_services_hub():
   </section>'''
 
     def group(title, items):
-        cards = "".join(t.card(n, u, s) for n, u, s in items)
+        cards = "".join(
+            t.real_card(pid, n, u, s) if pid else t.card(n, u, s)
+            for n, u, s, pid in items
+        )
         return f'<h3>{title}</h3><div class="grid grid-3" style="margin-bottom:var(--space-8);">{cards}</div>'
 
     roofing = group("Roofing", [
-        ("Metal Roofing", "/services/metal-roofing/", "Standing seam and exposed fastener installation across the county."),
-        ("Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, premium look, longest service life."),
-        ("Roof Replacement", "/services/metal-roof-replacement/", "Shingle tear-off or go-over, done right."),
-        ("Roof Repair", "/services/metal-roof-repair/", "Leaks, screws, flashing, and valley problems."),
+        ("Metal Roofing", "/services/metal-roofing/", "Standing seam and exposed fastener installation across the county.", "roof-green-standing-seam"),
+        ("Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, premium look, longest service life.", "roof-pewter-detail"),
+        ("Roof Replacement", "/services/metal-roof-replacement/", "Shingle tear-off or go-over, done right.", "roof-burgundy-after-01"),
+        ("Roof Repair", "/services/metal-roof-repair/", "Leaks, screws, flashing, and valley problems.", "barn-door-repair"),
     ])
     siding = group("Siding", [
-        ("Board & Batten Metal Siding", "/services/board-and-batten-metal-siding/", "Our specialty — the farmhouse look, in steel."),
+        ("Board & Batten Metal Siding", "/services/board-and-batten-metal-siding/", "Our specialty — the farmhouse look, in steel.", "roof-siding-remodel"),
     ])
     commercial = group("By Customer", [
-        ("Commercial Metal Roofing", "/services/commercial-metal-roofing/", "Small commercial projects up to $150,000."),
+        ("Commercial Metal Roofing", "/services/commercial-metal-roofing/", "Small commercial projects up to $150,000.", "pole-barn-01"),
     ])
 
     grid_section = f'''<section class="section-tint">
@@ -271,9 +279,9 @@ def service_page(slug, title, meta, h1, service_type, quick_answer, sections, fa
     <div class="container">
       <h2>Related Services</h2>
       <div class="grid grid-3">
-        {t.card("Metal Roofing", "/services/metal-roofing/", "The full picture on materials, cost, and process.")}
-        {t.card("Board & Batten Siding", "/services/board-and-batten-metal-siding/", "Pairs naturally with a new metal roof.")}
-        {t.card("Roof Repair", "/services/metal-roof-repair/", "Not sure if you need a repair or a replacement? Start here.")}
+        {t.real_card("roof-green-standing-seam", "Metal Roofing", "/services/metal-roofing/", "The full picture on materials, cost, and process.")}
+        {t.real_card("roof-siding-remodel", "Board & Batten Siding", "/services/board-and-batten-metal-siding/", "Pairs naturally with a new metal roof.")}
+        {t.real_card("barn-door-repair", "Roof Repair", "/services/metal-roof-repair/", "Not sure if you need a repair or a replacement? Start here.")}
       </div>
     </div>
   </section>'''
@@ -879,44 +887,51 @@ def build_about():
 def build_gallery():
     url = "/gallery/"
     title = "Metal Roofing Photo Gallery | Projects in Tazewell County VA"
-    desc = f"Real metal roofing, siding, and board & batten projects across Tazewell County, VA. {t.meta_call_cta()}"
+    desc = f"Real metal roofing, siding, and carport projects across Tazewell County, VA — including before-and-after roof replacements. {t.meta_call_cta()}"
 
     crumb = t.breadcrumb_html([("Home", "/"), ("Gallery", None)])
     hero = f'''<section class="hero hero-page"><div class="container hero-inner">
       <h1>Our Work</h1>
-      <p class="lede">This gallery launches once the owner's project photos are exported and
-      captioned by town and service — see <code>09-assets-and-images.md</code>. The layout, filter,
-      and structure below are ready to receive them.</p>
+      <p class="lede">Real jobs, real photos — no stock. Towns aren't tagged on these yet; we're
+      confirming that with the owner job by job, so for now everything is captioned by material
+      and color instead of place.</p>
     </div></section>'''
 
-    projects = [
-        ("Standing seam roof", "Richlands, VA", "roofing", "richlands", "/services/standing-seam-metal-roofing/", "/service-areas/richlands-va/"),
-        ("Board & batten siding", "Pounding Mill, VA", "siding", "pounding-mill", "/services/board-and-batten-metal-siding/", "/service-areas/pounding-mill-va/"),
-        ("Exposed fastener roof", "Bluefield, VA", "roofing", "bluefield", "/services/metal-roofing/", "/service-areas/bluefield-va/"),
-        ("Shingle-to-metal replacement", "Tazewell, VA", "roofing", "tazewell", "/services/metal-roof-replacement/", "/service-areas/tazewell-va/"),
-        ("Metal roof repair", "Richlands, VA", "repair", "richlands", "/services/metal-roof-repair/", "/service-areas/richlands-va/"),
-        ("Pole barn roofing", "Pounding Mill, VA", "roofing", "pounding-mill", "/services/metal-roofing/", "/service-areas/pounding-mill-va/"),
-        ("Commercial storefront roof", "Tazewell, VA", "commercial", "tazewell", "/services/commercial-metal-roofing/", "/service-areas/tazewell-va/"),
-        ("Board & batten accent gable", "Bluefield, VA", "siding", "bluefield", "/services/board-and-batten-metal-siding/", "/service-areas/bluefield-va/"),
-        ("Standing seam roof", "Tazewell, VA", "roofing", "tazewell", "/services/standing-seam-metal-roofing/", "/service-areas/tazewell-va/"),
-        ("Ag panel barn roof", "Richlands, VA", "roofing", "richlands", "/services/metal-roofing/", "/service-areas/richlands-va/"),
-        ("Metal siding project", "Pounding Mill, VA", "siding", "pounding-mill", "/services/metal-siding/" if False else "/services/board-and-batten-metal-siding/", "/service-areas/pounding-mill-va/"),
-        ("Roof repair — flashing", "Bluefield, VA", "repair", "bluefield", "/services/metal-roof-repair/", "/service-areas/bluefield-va/"),
-    ]
+    before_after = f'''<section class="section-white">
+    <div class="container">
+      <div class="section-head"><h2>Before &amp; After</h2><p>The most convincing photo in any roofing gallery — same house, same angle, before the tear-off and after the last panel goes on.</p></div>
+      <div class="before-after-grid">
+        {t.before_after_block("pewter")}
+        {t.before_after_block("burgundy-a")}
+        {t.before_after_block("burgundy-b")}
+      </div>
+    </div>
+  </section>'''
 
-    filters = ["all", "roofing", "siding", "repair", "commercial"]
-    filter_bar = '<div class="filter-bar" role="group" aria-label="Filter gallery by service">' + "".join(
+    # Individual gallery items, excluding the ones already shown above in the before/after section.
+    _shown = {p["id"] for pair in d.BEFORE_AFTER_PAIRS for p in
+              (d.project(pair["before"]), d.project(pair["after"]))}
+    _shown |= {p["id"] for p in d.PROJECTS if p["folder"] == "hero"}
+    _caption_by_category = {
+        "roofing": "Metal roof",
+        "siding": "Metal roof &amp; siding",
+        "carport": "Carport / covered porch",
+        "commercial": "Pole barn / commercial",
+        "repair": "Repair",
+    }
+    grid_items = "".join(
+        t.real_gallery_item(p["id"], _caption_by_category.get(p["category"], "Project"), p["category"])
+        for p in d.PROJECTS if p["id"] not in _shown
+    )
+
+    filters = ["all", "roofing", "siding", "carport", "commercial", "repair"]
+    filter_bar = '<div class="filter-bar" role="group" aria-label="Filter gallery by type">' + "".join(
         f'<button class="filter-btn{" is-active" if f == "all" else ""}" data-filter="{f}">{f.title()}</button>' for f in filters
     ) + "</div>"
 
-    grid_items = "".join(
-        t.gallery_item(name, town, svc_url, area_url, cat, town_slug)
-        for name, town, cat, town_slug, svc_url, area_url in projects
-    )
-
-    gallery = f'''<section class="section-white">
+    gallery = f'''<section class="section-tint">
     <div class="container">
-      <p class="text-small" style="color:var(--steel-600);margin-bottom:var(--space-4);">Note: minimum 12 real photos needed to launch this page for real — these 12 tiles are placeholders showing the intended layout, filtering, and captioning structure.</p>
+      <div class="section-head"><h2>All Projects</h2></div>
       {filter_bar}
       <div class="grid grid-4" id="gallery-grid">{grid_items}</div>
     </div>
@@ -928,7 +943,7 @@ def build_gallery():
     </div>
   </section>'''
 
-    body = crumb + hero + gallery + cta
+    body = crumb + hero + before_after + gallery + cta
     schemas = [t.webpage_schema(title, url, desc), t.breadcrumb_schema([("Home", "/"), ("Gallery", url)])]
     write_page(url, t.page(url, title, desc, body, schemas), priority="0.8")
 

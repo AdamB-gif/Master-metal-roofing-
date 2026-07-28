@@ -1,5 +1,32 @@
 # 09 — Assets & Images
 
+## ✅ 2026-07-28 update — 27 real photos received and integrated
+
+The owner dropped 27 real project photos (Facebook exports) directly into the working folder.
+One was an exact duplicate (removed). One (`605762052_...jpg`, a carport photo with several crew
+trucks) was **excluded from the site** because a rear license plate is clearly readable in frame —
+flag this to the owner; if they want it published, it needs the plate cropped or blurred first.
+
+The remaining 26 were resized (400/800/1200/1600px, plus up to 1920px for the hero), encoded to
+WebP with JPEG fallback, renamed descriptively, and wired into `data.py` (`PROJECTS` list) and the
+site templates — hero photo, home page cards, services hub cards, and a full `/gallery/` rebuild
+including a proper **Before & After** section (side-by-side desktop / stacked mobile, per the
+design system) for 3 identified before/after pairs:
+
+1. White ranch home, worn asphalt shingle → pewter-gray standing seam
+2. Brick ranch home (white porch columns), worn shingle → burgundy standing seam
+3. Brick ranch home (picnic table/propane tank), worn shingle → burgundy standing seam
+
+**What's still missing, per photo:** town, exact service name, color name, and any notable detail
+(pitch, "went over old shingles," etc.) — see the per-photo list logged in
+`15-owner-instructions-log.md`. None of these photos are placed on location pages yet because we
+cannot confirm which town each one is in; they currently run on the home page and gallery only,
+captioned by material/color/type. Once the owner confirms towns, move the relevant photos onto
+the matching `/service-areas/*/` pages and update alt text with the town name.
+
+No EXIF/GPS data was present on any of the 27 files (Facebook strips it on upload), so there was
+nothing to capture or strip for town-tagging purposes — the owner's answer is the only source.
+
 ## ⚠️ Facebook photos: what actually has to happen
 
 The Facebook page — `https://www.facebook.com/people/Metal-Master-Roofing-and-Construction/61562911080390/` — is login-gated and JavaScript-rendered. It **could not be read programmatically**, and automated scraping of Facebook violates their terms of service. Don't try to route around it.
