@@ -17,7 +17,9 @@ def write_page(url, html, priority="0.6"):
     else:
         target = os.path.join(OUT, url.strip("/"), "index.html")
     os.makedirs(os.path.dirname(target), exist_ok=True)
-    with open(target, "w") as f:
+    # encoding/newline pinned: the platform default is cp1252 on Windows, which
+    # silently corrupts every em dash in a file we declare as UTF-8.
+    with open(target, "w", encoding="utf-8", newline="\n") as f:
         f.write(html)
     if not url.startswith("/thank-you"):
         PAGES.append((url, priority))
@@ -26,7 +28,7 @@ def write_page(url, html, priority="0.6"):
 def write_raw(rel_path, content):
     target = os.path.join(OUT, rel_path.lstrip("/"))
     os.makedirs(os.path.dirname(target), exist_ok=True)
-    with open(target, "w") as f:
+    with open(target, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
 
 
@@ -106,7 +108,7 @@ def build_home():
           throughout Tazewell County and into nearby West Virginia. {("If you're within about " + d.SERVICE_RADIUS + ", we'll come look at it.") if d.SERVICE_RADIUS else "Not sure whether you're in range? Send the form and ask — it costs nothing."}</p>
           {t.link_list(d.AREAS_NAV + [("View All Service Areas", "/service-areas/")])}
         </div>
-        {t.photo_placeholder("Service area map", "Map placeholder")}
+        {t.map_embed()}
       </div>
     </div>
   </section>'''
@@ -578,15 +580,15 @@ def build_areas_hub():
     <div class="container">
       <h2>Tazewell County, Virginia</h2>
       <div class="grid grid-4">
-        {t.card("Bluefield, VA", "/service-areas/bluefield-va/", "Elevation, older neighborhoods, and the state line with WV.", "Location photo")}
-        {t.card("Richlands, VA", "/service-areas/richlands-va/", "Clinch River valley, coal-era housing, a light-commercial corridor.", "Location photo")}
-        {t.card("Pounding Mill, VA", "/service-areas/pounding-mill-va/", "Our home base — rural, agricultural, a lot of outbuildings.", "Location photo")}
-        {t.card("Tazewell, VA", "/service-areas/tazewell-va/", "The county seat — historic homes and higher elevation.", "Location photo")}
+        {t.area_card("Bluefield, VA", "/service-areas/bluefield-va/", "Elevation, older neighborhoods, and the state line with WV.")}
+        {t.area_card("Richlands, VA", "/service-areas/richlands-va/", "Clinch River valley, coal-era housing, a light-commercial corridor.")}
+        {t.area_card("Pounding Mill, VA", "/service-areas/pounding-mill-va/", "Our home base — rural, agricultural, a lot of outbuildings.")}
+        {t.area_card("Tazewell, VA", "/service-areas/tazewell-va/", "The county seat — historic homes and higher elevation.")}
       </div>
       <h2 style="margin-top:var(--space-8);">Along the I&#8209;81 Corridor</h2>
       <div class="grid grid-4">
-        {t.card("Wytheville, VA", "/service-areas/wytheville-va/", "Wythe County seat, at the I&#8209;77 and I&#8209;81 crossroads.", "Location photo")}
-        {t.card("Abingdon, VA", "/service-areas/abingdon-va/", "Washington County seat &mdash; historic district, higher elevation.", "Location photo")}
+        {t.area_card("Wytheville, VA", "/service-areas/wytheville-va/", "Wythe County seat, at the I&#8209;77 and I&#8209;81 crossroads.")}
+        {t.area_card("Abingdon, VA", "/service-areas/abingdon-va/", "Washington County seat &mdash; historic district, higher elevation.")}
       </div>
     </div>
   </section>'''
@@ -631,21 +633,43 @@ def location_page(slug, town, state, intro_html, quick_answer, why_local, faq, n
     <div class="container">
       <h2>Services in {town}</h2>
       <div class="grid grid-3">
-        {t.card("Metal Roofing", "/services/metal-roofing/", f"Standing seam and exposed fastener installation for homes in {town}.")}
-        {t.card("Board & Batten Siding", "/services/board-and-batten-metal-siding/", "The farmhouse look, in steel, for houses and outbuildings.")}
-        {t.card("Roof Repair", "/services/metal-roof-repair/", "Leak diagnosis and honest repair-vs-replace advice.")}
+        {t.real_card("roof-charcoal-legacy-01", "Metal Roofing", "/services/metal-roofing/", f"Standing seam and exposed fastener installation for homes in {town}.")}
+        {t.real_card("bb-green-house-01", "Board & Batten Siding", "/services/board-and-batten-metal-siding/", "The farmhouse look, in steel, for houses and outbuildings.")}
+        {t.real_card("barn-door-repair", "Roof Repair", "/services/metal-roof-repair/", "Leak diagnosis and honest repair-vs-replace advice.")}
       </div>
     </div>
   </section>'''
 
+    # Rotate the pair by slug so no two town pages show the same two photos.
+    _rota = [
+        ("roof-charcoal-legacy-01", "Metal roof &middot; textured charcoal", "roofing"),
+        ("bb-black-garage-01", "Board &amp; batten garage &middot; black", "siding"),
+        ("carport-24x24-01", "24&times;24 carport", "carport"),
+        ("roof-royal-red-01", "Metal roof &middot; royal red", "roofing"),
+        ("bb-green-house-01", "Board &amp; batten siding &middot; hunter green", "siding"),
+        ("vinyl-siding-01", "Vinyl siding, soffit &amp; fascia", "siding"),
+        ("pole-barn-01", "Pole barn / commercial", "commercial"),
+        ("carport-bronze-01", "Timber-frame carport", "carport"),
+    ]
+    _i = sum(ord(c) for c in slug) % len(_rota)
+    _picks = [_rota[_i], _rota[(_i + 3) % len(_rota)]]
+
     local_projects = f'''<section class="section-tint">
     <div class="container">
-      <h2>Local Projects</h2>
+      <h2>Recent Work</h2>
+      <p class="text-small" style="margin-bottom:var(--space-5);color:var(--steel-600);">Jobs from
+      across our service area. We don't tag these by town yet, so these aren't claimed as
+      {town} addresses — see the <a href="/gallery/">full gallery</a> for everything.</p>
       <div class="grid grid-2">
-        {t.gallery_item(f"Metal roof project", f"{town}, {state}", "/services/metal-roofing/", url, "roofing", slug)}
-        {t.gallery_item(f"Siding or repair project", f"{town}, {state}", "/services/board-and-batten-metal-siding/", url, "siding", slug)}
+        {"".join(t.real_gallery_item(pid, cap, cat) for pid, cap, cat in _picks)}
       </div>
-      <p class="text-small" style="margin-top:var(--space-4);color:var(--steel-600);">Photo gallery for this town is growing as jobs are tagged — see the <a href="/gallery/">full gallery</a> for current work.</p>
+    </div>
+  </section>'''
+
+    map_section = f'''<section class="section-white">
+    <div class="container">
+      <div class="section-head"><h2>{town} and the Area Around It</h2></div>
+      {t.map_embed(f"{town}, {state}", 11, f"Map of {town}, {state}")}
     </div>
   </section>'''
 
@@ -675,7 +699,7 @@ def location_page(slug, town, state, intro_html, quick_answer, why_local, faq, n
     </div>
   </section>'''
 
-    body = crumb + hero + intro + qa + services_here + local_projects + why_section + nearby_section + faq_section + cta
+    body = crumb + hero + intro + qa + services_here + local_projects + why_section + map_section + nearby_section + faq_section + cta
     schemas = [
         t.webpage_schema(title, url, meta),
         t.breadcrumb_schema([("Home", "/"), ("Service Areas", "/service-areas/"), (f"{town}, {state}", url)]),
@@ -913,7 +937,7 @@ def build_about():
           and it's the one thing a national lead-generation competitor structurally cannot
           produce.</em></p>
         </div>
-        {t.photo_placeholder("Owner on a jobsite", "Owner photo")}
+        {t.project_picture("roof-tearoff-progress", sizes="(min-width: 1024px) 50vw, 100vw")}
       </div>
     </div>
   </section>'''

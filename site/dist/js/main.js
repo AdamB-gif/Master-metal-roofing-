@@ -35,7 +35,7 @@
     });
   }
 
-  // Gallery filter (does not remove items from the DOM/crawlers — just hides visually)
+  // Gallery filter (does not remove items from the DOM/crawlers â€” just hides visually)
   var filterBtns = document.querySelectorAll(".filter-btn");
   var galleryGrid = document.getElementById("gallery-grid");
   if (filterBtns.length && galleryGrid) {
@@ -77,7 +77,7 @@
       }
       var elapsed = (Date.now ? Date.now() : new Date().getTime()) - renderedAt;
       if (elapsed < 3000) {
-        return; // silently discard — submitted too fast to be human
+        return; // silently discard â€” submitted too fast to be human
       }
 
       // Inline validation

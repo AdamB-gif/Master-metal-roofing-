@@ -212,6 +212,20 @@ def map_embed(query=None, zoom=None, title="Map of our service area"):
     </div>'''
 
 
+def area_card(title, url, desc):
+    """Town card with no photo. Deliberate: we have no photo confirmed to be in
+    any given town, and a project photo on a town card reads as a claim that the
+    job was there. A map-pin card looks finished and claims nothing."""
+    town = title.split(",")[0]
+    return f'''<article class="card area-card">
+    <div class="card-body">
+      <h3><a href="{url}" class="card-link">{icon("pin")}<span>{title}</span></a></h3>
+      <p>{desc}</p>
+      <a class="card-link" href="{url}" aria-hidden="true">Metal roofing in {town} &rarr;</a>
+    </div>
+  </article>'''
+
+
 def steps_html(steps):
     items = []
     for i, (title, body) in enumerate(steps, start=1):
