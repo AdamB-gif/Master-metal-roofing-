@@ -196,6 +196,19 @@ def card(title, url, desc, tag="Project photo"):
     </div>
   </article>'''
 
+def map_embed(query=None, zoom=None, title="Map of our service area"):
+    """Service-area map. No API key needed, and no street address is exposed —
+    the map is centred on the service area, not on a property."""
+    from urllib.parse import quote_plus
+    q = quote_plus(query or d.MAP_QUERY)
+    z = zoom or d.MAP_ZOOM
+    return f'''<div class="map-embed">
+      <iframe src="https://maps.google.com/maps?q={q}&z={z}&output=embed"
+              title="{title}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+    </div>'''
+
+
 def steps_html(steps):
     items = []
     for i, (title, body) in enumerate(steps, start=1):

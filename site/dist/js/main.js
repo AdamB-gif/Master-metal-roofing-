@@ -96,12 +96,38 @@
         return;
       }
 
-      // No backend is wired up yet in this preview build — see 11-forms-and-lead-capture.md
-      // for the Netlify Forms / Cloudflare Pages Functions / Formspree options to connect.
-      if (status) {
-        status.textContent = "This preview form isn't connected to a live inbox yet — see 11-forms-and-lead-capture.md to wire up delivery before launch.";
-        status.className = "form-status success is-visible";
+      // Delivery goes live only once FORM_ACCESS_KEY is set in data.py.
+      if (form.getAttribute("data-live") !== "1") {
+        if (status) {
+          status.textContent = "This preview form isn't connected to a live inbox yet.";
+          status.className = "form-status success is-visible";
+        }
+        return;
       }
+
+      var btn = form.querySelector("button[type=submit]");
+      if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+      if (status) {
+        status.textContent = "Sending...";
+        status.className = "form-status is-visible";
+      }
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(form)
+      }).then(function (res) {
+        if (!res.ok) throw new Error("Request failed");
+        window.location.href = "/thank-you/";
+      }).catch(function () {
+        // Never silently drop a lead: keep what they typed, point them at the phone.
+        if (btn) { btn.disabled = false; btn.textContent = "Get My Free Estimate"; }
+        var hp = document.querySelector(".header-phone");
+        if (status) {
+          status.textContent = "Something went wrong sending that. Please call us instead" +
+            (hp ? " on " + hp.textContent.trim() : "") + ".";
+          status.className = "form-status error is-visible";
+        }
+      });
     });
 
     form.querySelectorAll("[required]").forEach(function (field) {

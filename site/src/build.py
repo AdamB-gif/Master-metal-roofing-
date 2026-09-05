@@ -62,7 +62,7 @@ def build_home():
       <div class="section-head"><h2>What We Build</h2></div>
       <div class="grid grid-3">
         {t.real_card("roof-eave-detail", "Metal Roofing", "/services/metal-roofing/", "The roof that outlives the mortgage — standing seam or exposed fastener, built for these mountains.")}
-        {t.real_card("roof-pewter-detail", "Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, no exposed screws, and nothing on the surface to fail in twenty years.")}
+        {t.real_card("roof-green-standing-seam", "Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, no exposed screws, and nothing on the surface to fail in twenty years.")}
         {t.real_card("roof-siding-remodel", "Board & Batten Siding", "/services/board-and-batten-metal-siding/", "The farmhouse look that's been on barns around here for two hundred years — now in steel.")}
         {t.real_card("roof-tearoff-progress", "Roof Replacement", "/services/metal-roof-replacement/", "From worn-out shingles to a metal roof, often without a full tear-off.")}
         {t.real_card("barn-door-repair", "Roof Repair", "/services/metal-roof-repair/", "Leaks, backed-out screws, flashing, and valley problems — diagnosed straight.")}
@@ -216,7 +216,7 @@ def build_services_hub():
 
     roofing = group("Roofing", [
         ("Metal Roofing", "/services/metal-roofing/", "Standing seam and exposed fastener installation across the county.", "roof-green-standing-seam"),
-        ("Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, premium look, longest service life.", "roof-pewter-detail"),
+        ("Standing Seam", "/services/standing-seam-metal-roofing/", "Concealed fasteners, premium look, longest service life.", "roof-green-standing-seam"),
         ("Roof Replacement", "/services/metal-roof-replacement/", "Shingle tear-off or go-over, done right.", "roof-burgundy-after-01"),
         ("Roof Repair", "/services/metal-roof-repair/", "Leaks, screws, flashing, and valley problems.", "barn-door-repair"),
     ])
@@ -570,7 +570,7 @@ def build_areas_hub():
     intro = f'''<section class="section-white">
     <div class="container prose">
       <p>{d.SERVICE_AREA_SENTENCE} {("Generally, if you're within " + d.SERVICE_RADIUS + " of Pounding Mill, we'll come take a look.") if d.SERVICE_RADIUS else "Not sure if you're in range? Call us — it costs nothing to ask."}</p>
-      {t.photo_placeholder("Tazewell County service area map", "Map placeholder")}
+      {t.map_embed()}
     </div>
   </section>'''
 
@@ -1057,7 +1057,16 @@ def build_contact():
     </div>
   </section>'''
 
-    body = crumb + hero + layout
+    map_section = f'''<section class="section-tint">
+    <div class="container">
+      <div class="section-head"><h2>Where We Work</h2>
+      <p>We come to you — there's no storefront or showroom to visit. Here's the area we cover.</p></div>
+      {t.map_embed()}
+      <p class="text-center" style="margin-top:var(--space-5);"><a href="/service-areas/">See every town we serve &rarr;</a></p>
+    </div>
+  </section>'''
+
+    body = crumb + hero + layout + map_section
     schemas = [t.webpage_schema(title, url, desc), t.breadcrumb_schema([("Home", "/"), ("Contact", url)])]
     write_page(url, t.page(url, title, desc, body, schemas), priority="0.7")
 
@@ -1070,8 +1079,15 @@ def form_html(compact=False):
     town_opts = "".join(f'<option>{tn}</option>' for tn in d.TOWNS_FOR_FORM)
     need_opts = "".join(f'<option>{s}</option>' for s in d.SERVICE_NEEDS)
     heading = "" if compact else "<h2>Request Your Free Estimate</h2>"
-    return f'''<form id="estimate-form" novalidate action="#" method="post">
+    action = d.FORM_ENDPOINT if d.FORM_ACCESS_KEY else "#"
+    hidden = ""
+    if d.FORM_ACCESS_KEY:
+        hidden = (f'<input type="hidden" name="access_key" value="{d.FORM_ACCESS_KEY}">'
+                  f'<input type="hidden" name="subject" value="New estimate request — {d.BRAND} website">'
+                  f'<input type="hidden" name="from_name" value="{d.BRAND} website">')
+    return f'''<form id="estimate-form" novalidate action="{action}" method="post" data-live="{"1" if d.FORM_ACCESS_KEY else "0"}">
     {heading}
+    {hidden}
     <div class="honeypot-field" aria-hidden="true">
       <label for="company_website">Company Website</label>
       <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
@@ -1320,12 +1336,38 @@ def build_js():
         return;
       }
 
-      // No backend is wired up yet in this preview build — see 11-forms-and-lead-capture.md
-      // for the Netlify Forms / Cloudflare Pages Functions / Formspree options to connect.
-      if (status) {
-        status.textContent = "This preview form isn't connected to a live inbox yet — see 11-forms-and-lead-capture.md to wire up delivery before launch.";
-        status.className = "form-status success is-visible";
+      // Delivery goes live only once FORM_ACCESS_KEY is set in data.py.
+      if (form.getAttribute("data-live") !== "1") {
+        if (status) {
+          status.textContent = "This preview form isn't connected to a live inbox yet.";
+          status.className = "form-status success is-visible";
+        }
+        return;
       }
+
+      var btn = form.querySelector("button[type=submit]");
+      if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+      if (status) {
+        status.textContent = "Sending...";
+        status.className = "form-status is-visible";
+      }
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(form)
+      }).then(function (res) {
+        if (!res.ok) throw new Error("Request failed");
+        window.location.href = "/thank-you/";
+      }).catch(function () {
+        // Never silently drop a lead: keep what they typed, point them at the phone.
+        if (btn) { btn.disabled = false; btn.textContent = "Get My Free Estimate"; }
+        var hp = document.querySelector(".header-phone");
+        if (status) {
+          status.textContent = "Something went wrong sending that. Please call us instead" +
+            (hp ? " on " + hp.textContent.trim() : "") + ".";
+          status.className = "form-status error is-visible";
+        }
+      });
     });
 
     form.querySelectorAll("[required]").forEach(function (field) {

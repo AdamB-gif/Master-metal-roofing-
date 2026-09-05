@@ -8,6 +8,63 @@ is later reversed, note the reversal instead of removing the original line.
 
 ## 2026-09-05
 
+**Instruction:** "how do i put a map up, and connect my email what app should i use?"
+(plus the live deploy URL: `metal-master-roofing-…vercel.app`)
+**Applied as:** Two things, and one correction to an earlier answer.
+
+**Map.** Owner confirmed Metal Master is a **Service Area Business** — no storefront or office
+customers visit. So the map is centred on the service area rather than pinned to a property, and
+no street address is published anywhere on the site. Added a `map_embed()` helper in
+`templates.py` (Google Maps `output=embed`, no API key, no billing account, `loading="lazy"`),
+wired it into the `/service-areas/` hub in place of the old "Map placeholder", and added a new
+"Where We Work" section to `/contact/` that says plainly there's no showroom to visit. Centre
+point and zoom are `MAP_QUERY` / `MAP_ZOOM` in `data.py`.
+
+**Form delivery.** The owner had answered "Netlify" when asked about hosting, but then sent a
+live **Vercel** deploy URL — so Netlify Forms, which `11-forms-and-lead-capture.md` lists first,
+is not available. Wired the form for **Web3Forms** instead: a plain HTML POST endpoint that works
+on any static host, needs no backend and no account beyond a verified email address. The form was
+already fully built (five fields, honeypot, 3-second time trap, inline validation) — only delivery
+was missing.
+
+`FORM_ACCESS_KEY` in `data.py` is the switch, handled the same way as `DOMAIN`/`PHONE`/`EMAIL`:
+- **Key is `None`** (current state) — form renders exactly as before and says it isn't connected.
+- **Key set** — form posts to Web3Forms, adds the `access_key`/`subject`/`from_name` hidden
+  fields, shows a sending state, and redirects to `/thank-you/` so the conversion is trackable.
+  On failure it keeps everything the customer typed and shows the phone number, per the doc's
+  "never silently drop a lead" rule.
+
+Verified both branches render correctly with a throwaway key; no real key is committed.
+
+**Still needed from the owner before the form can go live:** a Web3Forms access key (free, from
+web3forms.com — takes an email address and about two minutes) and the destination email address,
+which is still the `EMAIL = None` placeholder in `data.py`. SMS notification, which
+`11-forms-and-lead-capture.md` argues matters more than email for a contractor on a roof, is not
+wired yet — Web3Forms can webhook to Zapier/Make for that once the basics work.
+
+**Instruction:** "also the only standing seam is the big green house. the others are just
+legacy textured you can fix that."
+**Applied as:** Material factual correction — the photo library had been captioned from
+appearance alone, and 18 photos were wrongly described as standing seam. Confirmed with the owner
+which house was meant (the large brick ranch with the green roof — the home page hero,
+`roof-green-standing-seam`), since "the big green house" could also have read as the hunter green
+board & batten cottage from this batch. Only that one photo keeps the standing seam description.
+
+Rewrote 18 alt texts to "textured Legacy" and relabelled the three older before/after pairs
+("Worn Shingles to Pewter Legacy", "…to Burgundy Legacy" ×2). Two exceptions: the custom-formed
+copper-toned door awnings now say just "custom metal awning" with no profile named — a small
+custom-formed awning is plausibly neither profile, and naming one would be guessing again.
+
+Also fixed a real consequence of the error: both the home page and the services hub used
+`roof-pewter-detail` — a Legacy roof — as the card image for the **Standing Seam** service page.
+Swapped both to `roof-green-standing-seam`, the only genuine standing seam photo in the library.
+
+**Left alone deliberately:** general copy about standing seam as a service (the
+`/services/standing-seam-metal-roofing/` page, the standing-seam-vs-exposed-fastener comparison,
+and the location pages' profile recommendations). Metal Master does install standing seam — the
+green house is the proof — so that copy is accurate. Only claims made *about a specific photo*
+were wrong, and only those were changed.
+
 **Instruction:** "add these photo to website and push — This is the black board and batten
 Garage we did. Complete vinyl siding job with soffit and facia new gutters. Royal red textured
 legacy panel and exposed fastener — John and Isaac did this one. Small Little addition we did
