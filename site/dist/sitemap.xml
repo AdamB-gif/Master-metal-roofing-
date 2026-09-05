@@ -12,6 +12,8 @@
   <url><loc>https://{{DOMAIN}}/service-areas/richlands-va/</loc><priority>0.85</priority></url>
   <url><loc>https://{{DOMAIN}}/service-areas/pounding-mill-va/</loc><priority>0.85</priority></url>
   <url><loc>https://{{DOMAIN}}/service-areas/tazewell-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/wytheville-va/</loc><priority>0.85</priority></url>
+  <url><loc>https://{{DOMAIN}}/service-areas/abingdon-va/</loc><priority>0.85</priority></url>
   <url><loc>https://{{DOMAIN}}/about/</loc><priority>0.8</priority></url>
   <url><loc>https://{{DOMAIN}}/gallery/</loc><priority>0.8</priority></url>
   <url><loc>https://{{DOMAIN}}/contact/</loc><priority>0.7</priority></url>

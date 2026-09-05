@@ -35,7 +35,8 @@ CEILING_LINE = (
 )
 SERVICE_AREA_SENTENCE = (
     "We work throughout Tazewell County — Bluefield, Richlands, Pounding Mill, Tazewell, "
-    "Cedar Bluff, Claypool Hill, and everywhere between — plus parts of Mercer County, West Virginia."
+    "Cedar Bluff, Claypool Hill, and everywhere between — plus Wytheville and Abingdon along "
+    "the I-81 corridor and parts of Mercer County, West Virginia."
 )
 
 TRUST_STRIP = ["Licensed & Insured", "Family Owned & Local", "Free Estimates", "Residential & Commercial"]
@@ -54,6 +55,8 @@ AREAS_NAV = [
     ("Richlands, VA", "/service-areas/richlands-va/"),
     ("Pounding Mill, VA", "/service-areas/pounding-mill-va/"),
     ("Tazewell, VA", "/service-areas/tazewell-va/"),
+    ("Wytheville, VA", "/service-areas/wytheville-va/"),
+    ("Abingdon, VA", "/service-areas/abingdon-va/"),
 ]
 
 FOOTER_SERVICES = SERVICES_NAV + [("All Services", "/services/")]
@@ -66,7 +69,8 @@ FOOTER_COMPANY = [
 ]
 
 TOWNS_FOR_FORM = ["Bluefield, VA", "Richlands, VA", "Pounding Mill, VA", "Tazewell, VA",
-                  "Cedar Bluff, VA", "Claypool Hill, VA", "North Tazewell, VA", "Other"]
+                  "Cedar Bluff, VA", "Claypool Hill, VA", "North Tazewell, VA",
+                  "Wytheville, VA", "Abingdon, VA", "Other"]
 SERVICE_NEEDS = ["Metal roof", "Roof repair", "Board & batten siding", "Metal siding",
                   "Pole barn / building", "Commercial", "Not sure yet"]
 
@@ -175,6 +179,112 @@ PROJECTS = [
     dict(id="roof-tearoff-progress", folder="projects", base="metal-roof-installation-in-progress-tear-off-01",
          w=1536, h=2048, max_w=1200, category="roofing",
          alt="Crew mid-installation, tearing off old asphalt shingles and setting purlins ahead of a metal roof"),
+
+    # --- Second owner batch (2026-09-05). Captions come from the owner's own
+    # notes on each job; town is still not claimed on any photo (open question #8).
+
+    # Black board & batten metal garage built beside a white farmhouse.
+    dict(id="bb-black-garage-01", folder="projects", base="board-and-batten-black-metal-garage-farmhouse-01",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Black board and batten metal garage beside a white farmhouse, with a rainbow overhead at dusk"),
+    dict(id="bb-black-garage-02", folder="projects", base="board-and-batten-black-metal-garage-farmhouse-02",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Detached black board and batten metal garage matching a two-story white farmhouse"),
+    dict(id="bb-black-garage-03", folder="projects", base="board-and-batten-black-metal-garage-farmhouse-03",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Gable end of a black board and batten metal garage with a roll-up door, at sunset"),
+    dict(id="bb-black-garage-04", folder="projects", base="board-and-batten-black-metal-garage-farmhouse-04",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Black board and batten garage and white farmhouse seen from across an open field"),
+    dict(id="bb-black-garage-05", folder="projects", base="board-and-batten-black-metal-garage-farmhouse-05",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Black board and batten metal garage alongside a white farmhouse in evening light"),
+
+    # Hunter green board & batten metal siding, black standing seam roof, timber porch.
+    dict(id="bb-green-house-01", folder="projects", base="board-and-batten-hunter-green-metal-siding-black-roof-01",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Hunter green board and batten metal siding and a black standing seam roof on a remodeled cottage with a timber-frame porch"),
+    dict(id="bb-green-house-02", folder="projects", base="board-and-batten-hunter-green-metal-siding-black-roof-02",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Front of a hunter green board and batten home with a black standing seam metal roof and cedar porch posts"),
+    dict(id="bb-green-house-03", folder="projects", base="board-and-batten-hunter-green-metal-siding-black-roof-03",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Side view of a hunter green board and batten metal-clad home with cedar window awnings"),
+    dict(id="bb-green-house-04", folder="projects", base="board-and-batten-hunter-green-metal-siding-black-roof-04",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Straight-on view of a hunter green board and batten cottage with a covered front porch"),
+    dict(id="bb-green-house-05", folder="projects", base="board-and-batten-hunter-green-metal-siding-black-roof-05",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Gable end of a hunter green board and batten home with cedar-bracketed window awnings"),
+    dict(id="porch-tg-ceiling-01", folder="projects", base="timber-frame-porch-tongue-and-groove-ceiling-01",
+         w=1200, h=1600, max_w=1200, category="carport",
+         alt="Tongue-and-groove pine ceiling and cedar beams under a newly built covered porch"),
+    dict(id="porch-tg-ceiling-02", folder="projects", base="timber-frame-porch-tongue-and-groove-ceiling-02",
+         w=1200, h=1600, max_w=1200, category="carport",
+         alt="New covered porch with cedar posts and a wood ceiling on a green board and batten home"),
+    dict(id="porch-tg-ceiling-03", folder="projects", base="timber-frame-porch-tongue-and-groove-ceiling-03",
+         w=1200, h=1600, max_w=1200, category="carport",
+         alt="Cedar porch posts and knee braces carrying a new porch roof over a concrete slab"),
+
+    # 24x24 carport.
+    dict(id="carport-24x24-01", folder="projects", base="24x24-carport-wood-post-metal-roof-01",
+         w=1600, h=1200, max_w=1600, category="carport",
+         alt="New 24x24 carport with treated wood posts and a metal roof attached to a brick ranch home"),
+    dict(id="carport-24x24-02", folder="projects", base="24x24-carport-wood-post-metal-roof-02",
+         w=1600, h=1200, max_w=1600, category="carport",
+         alt="Twenty-four by twenty-four carport with a metal roof and cream metal ceiling"),
+    dict(id="carport-24x24-03", folder="projects", base="24x24-carport-wood-post-metal-roof-03",
+         w=1600, h=1200, max_w=1600, category="carport",
+         alt="Open 24x24 carport framed in treated wood, roofed in metal with brown trim"),
+
+    # Textured charcoal, Legacy profile.
+    dict(id="roof-charcoal-legacy-01", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-ranch-01",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Brick ranch home with a new textured charcoal metal roof in the Legacy panel profile"),
+    dict(id="roof-charcoal-legacy-02", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-ranch-02",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Textured charcoal Legacy metal roof over the attached garage of a brick ranch home"),
+    dict(id="roof-charcoal-legacy-03", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-ranch-03",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Textured charcoal Legacy metal roof and new white gutters along the side of a brick ranch"),
+    dict(id="roof-charcoal-legacy-04", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-ranch-04",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Rear of a brick ranch home with a textured charcoal metal roof over the patio"),
+    dict(id="roof-charcoal-legacy-05", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-home-05",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Brick home with a new textured charcoal metal roof and white trim"),
+    dict(id="roof-charcoal-legacy-06", folder="projects", base="metal-roof-replacement-after-textured-charcoal-legacy-01",
+         w=1600, h=1412, max_w=1600, category="roofing",
+         alt="Overhead view of a brick home finished with a textured charcoal Legacy metal roof"),
+    dict(id="roof-shingle-before-04", folder="projects", base="metal-roof-replacement-before-worn-shingle-brick-home-04",
+         w=1200, h=1600, max_w=1200, category="roofing",
+         alt="Worn asphalt shingle roof and ridge caps photographed from above, before metal roof replacement"),
+
+    # Royal red textured Legacy panel, exposed fastener.
+    dict(id="roof-royal-red-01", folder="projects", base="metal-roof-royal-red-legacy-exposed-fastener-01",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Royal red textured Legacy exposed-fastener metal roof on a long white ranch home"),
+    dict(id="roof-royal-red-02", folder="projects", base="metal-roof-royal-red-legacy-exposed-fastener-02",
+         w=1600, h=1200, max_w=1600, category="roofing",
+         alt="Side view of a white home with a royal red exposed-fastener metal roof and new trim"),
+
+    # Complete vinyl siding, soffit, fascia, and gutters.
+    dict(id="vinyl-siding-01", folder="projects", base="vinyl-siding-soffit-fascia-gutters-sage-green-01",
+         w=1600, h=1200, max_w=1600, category="siding",
+         alt="Home fully re-sided in sage green vinyl with new soffit, fascia, and gutters"),
+
+    # Small addition built onto an existing metal barn.
+    dict(id="barn-addition-01", folder="projects", base="barn-lean-to-addition-green-metal-siding-01",
+         w=1600, h=1200, max_w=1600, category="commercial",
+         alt="New lean-to addition with green metal siding and a roll-up door built onto an existing metal barn"),
+    dict(id="barn-addition-framing", folder="projects", base="barn-lean-to-addition-framing-in-progress-01",
+         w=1600, h=1200, max_w=1600, category="commercial",
+         alt="Treated lumber framing for a small lean-to addition going up against a green metal barn"),
+
+    # Porch and porch roof built onto an existing home (the roof itself was not ours).
+    dict(id="porch-addition-01", folder="projects", base="covered-porch-addition-black-metal-roof-01",
+         w=1600, h=1200, max_w=1600, category="carport",
+         alt="Newly built covered porch and porch roof on a white ranch home with a black metal roof"),
 ]
 
 BEFORE_AFTER_PAIRS = [

@@ -6,6 +6,65 @@ is later reversed, note the reversal instead of removing the original line.
 
 ---
 
+## 2026-09-05
+
+**Instruction:** "add these photo to website and push — This is the black board and batten
+Garage we did. Complete vinyl siding job with soffit and facia new gutters. Royal red textured
+legacy panel and exposed fastener — John and Isaac did this one. Small Little addition we did
+on this Barn. We didn't do the roof on this one, but we built the porch and the roof on the porch."
+/ "24x24 carport" / "This is a textured charcoal in the lecacy profile"
+**Applied as:** Second owner photo batch — 30 files from `Desktop\New folder`, one exact
+duplicate removed (`123.jpeg` == `dddd.jpeg`), leaving **29 new photos**. Ran them through the same
+pipeline as the first batch (400/800/1200/1600 ladder for landscape, 400/800/1200 for portrait;
+WebP + JPEG at quality 82/80; descriptive lowercase filenames) into `site/static/images/projects/`,
+and added them to the `PROJECTS` table in `data.py`. Grouped by the owner's own captions:
+
+- **Black board & batten metal garage** beside a white farmhouse — 5 photos (`bb-black-garage-01..05`)
+- **Textured charcoal, Legacy profile** — 6 photos (`roof-charcoal-legacy-01..06`)
+- **24×24 carport**, wood posts and metal roof — 3 photos (`carport-24x24-01..03`)
+- **Royal red textured Legacy, exposed fastener** (John and Isaac's job) — 2 photos (`roof-royal-red-01..02`)
+- **Complete vinyl siding** with new soffit, fascia, and gutters — 1 photo (`vinyl-siding-01`)
+- **Small lean-to addition on a metal barn** — 2 photos, finished plus framing (`barn-addition-01`, `barn-addition-framing`)
+- **Porch and porch roof built on an existing home** (roof itself was not ours) — 1 photo (`porch-addition-01`)
+- **Hunter green board & batten house** — black standing seam roof, timber-frame porch — 5 exterior
+  photos plus 3 porch/tongue-and-groove-ceiling detail shots. *The owner did not caption this job;
+  captions are descriptive only (material, color, profile) and claim nothing about scope or town.*
+
+Wired the strongest four onto the home page's **Recent Projects** row (black garage, textured
+charcoal roof, 24×24 carport, royal red roof), and swapped the hunter green board & batten
+house into the home page's "Board & Batten, Done in Metal" split section. Everything else flows
+into `/gallery/` automatically through the existing category filters.
+
+**Not paired as before/after:** the overhead worn-shingle shot (`roof-shingle-before-04`) and the
+overhead finished charcoal roof (`roof-charcoal-legacy-06`) look like they *could* be the same
+house, but the surroundings differ enough between the two frames that it isn't certain. Rather than
+publish a before/after claim that might be wrong, both run as standalone gallery photos. **Owner
+question: are these the same house?** If yes, they become a fourth before/after pair.
+
+Town is still not claimed on any photo in either batch — open question #8 in
+`14-open-questions.md` still stands.
+
+**Instruction:** "add Abingdon and Wythville, Virginia to location"
+**Applied as:** Added `/service-areas/wytheville-va/` and `/service-areas/abingdon-va/` using the
+existing `location_page()` template, so they carry the same structure as the four Tazewell County
+pages (breadcrumb, quick answer, services-here grid, why-local, nearby links, local FAQ, WebPage +
+BreadcrumbList + FAQPage schema). Added both to `AREAS_NAV` (header and mobile nav dropdowns,
+footer), to `TOWNS_FOR_FORM` on the estimate form, and to `SERVICE_AREA_SENTENCE`. On the
+`/service-areas/` hub they sit under a **new second heading, "Along the I‑81 Corridor"**, kept
+separate from the "Tazewell County, Virginia" group because neither town is in Tazewell County
+(Wytheville is the Wythe County seat, Abingdon the Washington County seat).
+
+Page copy sticks to publicly verifiable local facts — Wytheville's I‑77/I‑81 crossroads
+and ~2,200 ft elevation; Abingdon's historic district, Barter Theatre, and Virginia Creeper Trail
+— and deliberately makes **no claim about drive time, response time, or how often we're in
+either town**, since none of that is confirmed. Both FAQs answer "do you travel here?" with "yes,
+call us and we'll confirm scheduling for your address" rather than inventing a radius. The Abingdon
+page notes that exterior changes in a designated historic district can be subject to local review
+and tells the homeowner to check with the town — worth confirming with the owner that he's
+comfortable with that framing.
+
+---
+
 ## 2026-07-28 (continued)
 
 **Instruction:** "Let's continue the work that we started here using Front-end Design. Let's

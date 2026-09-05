@@ -35,7 +35,7 @@
     });
   }
 
-  // Gallery filter (does not remove items from the DOM/crawlers â€” just hides visually)
+  // Gallery filter (does not remove items from the DOM/crawlers — just hides visually)
   var filterBtns = document.querySelectorAll(".filter-btn");
   var galleryGrid = document.getElementById("gallery-grid");
   if (filterBtns.length && galleryGrid) {
@@ -77,7 +77,7 @@
       }
       var elapsed = (Date.now ? Date.now() : new Date().getTime()) - renderedAt;
       if (elapsed < 3000) {
-        return; // silently discard â€” submitted too fast to be human
+        return; // silently discard — submitted too fast to be human
       }
 
       // Inline validation
@@ -96,10 +96,10 @@
         return;
       }
 
-      // No backend is wired up yet in this preview build â€” see 11-forms-and-lead-capture.md
+      // No backend is wired up yet in this preview build — see 11-forms-and-lead-capture.md
       // for the Netlify Forms / Cloudflare Pages Functions / Formspree options to connect.
       if (status) {
-        status.textContent = "This preview form isn't connected to a live inbox yet â€” see 11-forms-and-lead-capture.md to wire up delivery before launch.";
+        status.textContent = "This preview form isn't connected to a live inbox yet — see 11-forms-and-lead-capture.md to wire up delivery before launch.";
         status.className = "form-status success is-visible";
       }
     });

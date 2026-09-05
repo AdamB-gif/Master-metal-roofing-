@@ -115,10 +115,10 @@ def build_home():
     <div class="container">
       <div class="section-head"><h2>Recent Projects</h2></div>
       <div class="grid grid-4">
-        {t.real_gallery_item("roof-pewter-after-01", "Standing seam roof &middot; pewter", "roofing")}
-        {t.real_gallery_item("carport-porch-02", "Covered carport &amp; porch", "carport")}
-        {t.real_gallery_item("carport-bronze-01", "Custom timber-frame carport", "carport")}
-        {t.real_gallery_item("roof-burgundy-after-01", "Standing seam roof &middot; burgundy", "roofing")}
+        {t.real_gallery_item("bb-black-garage-01", "Board &amp; batten garage &middot; black", "siding")}
+        {t.real_gallery_item("roof-charcoal-legacy-01", "Metal roof &middot; textured charcoal", "roofing")}
+        {t.real_gallery_item("carport-24x24-01", "24&times;24 carport", "carport")}
+        {t.real_gallery_item("roof-royal-red-01", "Metal roof &middot; royal red", "roofing")}
       </div>
       <p class="text-center" style="margin-top:var(--space-7);"><a class="btn btn-secondary" href="/gallery/">See the Full Gallery &rarr;</a></p>
     </div>
@@ -127,7 +127,7 @@ def build_home():
     batten = f'''<section class="section-white" id="batten">
     <div class="container">
       <div class="split reverse">
-        {t.project_picture("roof-siding-remodel", sizes="(min-width: 1024px) 50vw, 100vw")}
+        {t.project_picture("bb-green-house-01", sizes="(min-width: 1024px) 50vw, 100vw")}
         <div>
           <h2>Board &amp; Batten, Done in Metal</h2>
           <p>Board and batten gives you the vertical farmhouse-and-barn look that's been on
@@ -556,7 +556,7 @@ def build_service_pages():
 def build_areas_hub():
     url = "/service-areas/"
     title = "Service Areas | Metal Roofing Tazewell County VA & Beyond"
-    desc = f"Where Metal Master Roofing works — Bluefield, Richlands, Pounding Mill, Tazewell, and across Tazewell County VA. {t.meta_call_cta()}"
+    desc = f"Where Metal Master Roofing works — Bluefield, Richlands, Pounding Mill, Tazewell, plus Wytheville and Abingdon. {t.meta_call_cta()}"
 
     crumb = t.breadcrumb_html([("Home", "/"), ("Service Areas", None)])
     hero = f'''<section class="hero hero-page">
@@ -582,6 +582,11 @@ def build_areas_hub():
         {t.card("Richlands, VA", "/service-areas/richlands-va/", "Clinch River valley, coal-era housing, a light-commercial corridor.", "Location photo")}
         {t.card("Pounding Mill, VA", "/service-areas/pounding-mill-va/", "Our home base — rural, agricultural, a lot of outbuildings.", "Location photo")}
         {t.card("Tazewell, VA", "/service-areas/tazewell-va/", "The county seat — historic homes and higher elevation.", "Location photo")}
+      </div>
+      <h2 style="margin-top:var(--space-8);">Along the I&#8209;81 Corridor</h2>
+      <div class="grid grid-4">
+        {t.card("Wytheville, VA", "/service-areas/wytheville-va/", "Wythe County seat, at the I&#8209;77 and I&#8209;81 crossroads.", "Location photo")}
+        {t.card("Abingdon, VA", "/service-areas/abingdon-va/", "Washington County seat &mdash; historic district, higher elevation.", "Location photo")}
       </div>
     </div>
   </section>'''
@@ -806,6 +811,79 @@ def build_location_pages():
             ("What roofing profile suits a historic-style home?", "Standing seam's clean, traditional look is usually the better fit over an ag-panel profile."),
         ],
         nearby=[("North Tazewell, VA", "/service-areas/"), ("Claypool Hill, VA", "/service-areas/"),
+                ("Bluefield, VA", "/service-areas/bluefield-va/"), ("Richlands, VA", "/service-areas/richlands-va/")],
+    )
+
+    location_page(
+        slug="wytheville-va", town="Wytheville", state="VA",
+        intro_html='''<p>Wytheville sits where I&#8209;77 and I&#8209;81 cross, up around 2,200 feet in
+            Wythe County. That elevation means real snow most winters and a lot of freeze&ndash;thaw
+            cycling &mdash; the kind of repeated expansion and contraction that finds every weak
+            fastener and every tired shingle on a roof. It's exactly the argument for metal: a
+            standing seam roof sheds snow off a smooth, fastener-free surface, and its concealed
+            clips let the panel move with temperature instead of working screws loose.</p>
+            <p>We install metal roofing, metal siding, and board &amp; batten on homes, barns, and
+            small commercial buildings in and around Wytheville. The interstate crossroads brings a
+            fair amount of storefront and small commercial property with it, and that's work we take
+            on too &mdash; projects up to $150,000. Call us for a free estimate and we'll confirm
+            scheduling for your address.</p>''',
+        quick_answer=("Wytheville's elevation brings real snow and heavy freeze\u2013thaw cycling most "
+                       "winters \u2014 conditions that wear out asphalt shingles and back out exposed "
+                       "screws faster than they do in milder, lower country."),
+        why_local='''<p>Two things shape roofing here. First, elevation: at roughly 2,200 feet,
+            Wytheville gets more snow and more freeze&ndash;thaw cycling than lower ground, and that
+            cycling is what loosens fasteners and lifts shingle tabs over time. Standing seam's
+            concealed clips let panels expand and contract without fighting the fastener, which is
+            why we lean toward it on exposed, higher-elevation roofs. Second, the land: Wythe County
+            has a lot of open farm ground, and open ground means wind. Panel gauge, fastening
+            pattern, and edge-metal detail matter more on a roof with nothing upwind of it than they
+            do on a sheltered in-town lot &mdash; and edge detail is where a cheap roof fails
+            first.</p>''',
+        faq=[
+            ("Do you travel to Wytheville?", "Yes \u2014 Wytheville is within the area we serve. Call us and we'll confirm scheduling for your address."),
+            ("Does Wytheville's elevation change what roof you'd recommend?", "It pushes us toward standing seam on most homes \u2014 concealed fasteners and a smooth, snow-shedding surface hold up better through repeated freeze\u2013thaw cycles."),
+            ("Do you do commercial work in Wytheville?", "Yes \u2014 storefronts, shops, and small offices, on projects up to $150,000."),
+            ("Do you do barns and outbuildings out in Wythe County?", "Yes \u2014 pole barns, equipment sheds, and ag-panel roofing are regular work for us."),
+        ],
+        nearby=[("Abingdon, VA", "/service-areas/abingdon-va/"), ("Tazewell, VA", "/service-areas/tazewell-va/"),
+                ("Bluefield, VA", "/service-areas/bluefield-va/"), ("Richlands, VA", "/service-areas/richlands-va/")],
+    )
+
+    location_page(
+        slug="abingdon-va", town="Abingdon", state="VA",
+        intro_html='''<p>Abingdon is the Washington County seat, and its historic district &mdash; the
+            Main Street blocks around the Barter Theatre and the head of the Virginia Creeper Trail
+            &mdash; is one of the better-preserved in southwest Virginia. That matters for roofing:
+            on a house where the architecture is the point, the profile and color of the roof are
+            part of the decision, not an afterthought. Standing seam's clean, traditional lines
+            usually sit better on an older home than an agricultural exposed-fastener panel does.
+            Exterior changes within a designated historic district can also be subject to local
+            review, so it's worth checking with the town before you settle on a color.</p>
+            <p>We install metal roofing, metal siding, and board &amp; batten throughout Abingdon
+            &mdash; historic homes near downtown, newer construction on the edges, and the barns and
+            outbuildings on the farms around it. Free estimates, and we'll tell you straight what
+            your roof actually needs.</p>''',
+        quick_answer=("On Abingdon's older and historic-district homes, roof appearance carries real "
+                       "weight \u2014 standing seam's clean, traditional profile suits that architecture "
+                       "better than an agricultural exposed-fastener look, and exterior changes in the "
+                       "district may need local review first."),
+        why_local='''<p>Abingdon's housing stock runs older than most of what we see, and an older
+            house is rarely a straight tear-off-and-replace. Decking condition, existing flashing,
+            chimney and dormer details, and how the eave and rake were originally built all change
+            what a proper metal roof install looks like &mdash; and we'd rather find that during the
+            estimate than halfway through the job. Appearance carries more weight here too: on a
+            house in or near the historic district, panel profile, seam spacing, and color are part
+            of the decision, not just durability. Outside town, Washington County is farm country,
+            which means barns, equipment sheds, and pole buildings where an exposed-fastener ag
+            panel is the sensible, cost-effective choice. We do both, and we'll tell you which one
+            your building calls for.</p>''',
+        faq=[
+            ("Do you travel to Abingdon?", "Yes \u2014 Abingdon is within the area we serve. Call us and we'll confirm scheduling for your address."),
+            ("Can I put a metal roof on a home in the historic district?", "Often yes, but exterior changes in a designated historic district can require local review \u2014 check with the town first, and we'll work with whatever profile and color get approved."),
+            ("What roof profile suits an older Abingdon home?", "Standing seam, usually \u2014 its clean, traditional lines suit older architecture better than an agricultural exposed-fastener panel."),
+            ("Do you do barns and farm buildings around Washington County?", "Yes \u2014 pole barns, equipment sheds, and ag-panel roofing, alongside our residential work."),
+        ],
+        nearby=[("Wytheville, VA", "/service-areas/wytheville-va/"), ("Tazewell, VA", "/service-areas/tazewell-va/"),
                 ("Bluefield, VA", "/service-areas/bluefield-va/"), ("Richlands, VA", "/service-areas/richlands-va/")],
     )
 
