@@ -123,8 +123,9 @@
         if (btn) { btn.disabled = false; btn.textContent = "Get My Free Estimate"; }
         var hp = document.querySelector(".header-phone");
         if (status) {
-          status.textContent = "Something went wrong sending that. Please call us instead" +
-            (hp ? " on " + hp.textContent.trim() : "") + ".";
+          status.textContent = hp
+            ? "Something went wrong sending that. Please call us instead on " + hp.textContent.trim() + "."
+            : "Something went wrong sending that. Please try again in a moment, or message us on Facebook.";
           status.className = "form-status error is-visible";
         }
       });

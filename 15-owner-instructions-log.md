@@ -8,6 +8,50 @@ is later reversed, note the reversal instead of removing the original line.
 
 ## 2026-09-05
 
+**Instruction:** "there won't be phone number. no email i guess a fill out form will be the
+only thing there."
+**Applied as:** The estimate form is now the only inbound contact channel. This **reverses the
+core principle in `11-forms-and-lead-capture.md`** ("The phone is the primary channel… never let
+[the form] crowd out the phone number") — recorded here rather than edited out of that doc, per
+this log's own rule. The concern was put to the owner (most roofing leads call; the doc's position
+was deliberate) and the owner confirmed the decision, so it was implemented in full.
+
+Done **structurally in the helpers**, not by find-and-replace, so that if a phone number is ever
+added to `data.py` every CTA switches back on by itself:
+- `phone_link()`, `phone_text_link()`, `email_text_link()` now return an empty string instead of a
+  `[Phone number]` / `[Email address]` placeholder.
+- `cta_row()` drops its second button; the header drops the phone link; the mobile drawer's call
+  button becomes "Get a Free Estimate".
+- The sticky mobile bar is now a single full-width estimate button (its flex children are
+  `flex: 1 1 50%`, so a lone child fills the pill — no CSS change needed).
+- The footer contact list is built from whatever actually exists, and gained a "Request a free
+  estimate" link.
+- `business_schema()` already omitted `telephone` when unset — no change needed.
+
+Then the prose, which needed real editing rather than a switch: 15 passages across the home page,
+areas hub, four location pages, the 404, the how-it-works steps, and two home FAQ answers were
+rewritten from "call us" to "send the form". Kept deliberately: **"we call you back"** on the
+thank-you page and in the process steps — the form collects the customer's phone number, so
+Metal Master still phones *them*. Outbound calling is unaffected; only inbound is gone. Also
+changed the home section heading "Why Neighbors Around Here Call Us First" to "…Come to Us First",
+since the idiom now reads as an instruction the visitor can't follow.
+
+Verified across all 19 built pages: zero `[Phone number]`/`[Email address]` placeholders, zero
+`tel:`/`mailto:` links, zero "call us", zero empty `<p>`/`<li>` left behind by the removed rows.
+
+**Raised with the owner, unresolved:**
+1. **The site currently has no working contact channel at all.** The form still has no
+   `FORM_ACCESS_KEY`, so with the phone and email gone it collects nothing. This is now urgent
+   rather than a nice-to-have.
+2. **A published gallery photo contradicts the decision.** The yard sign in
+   `board-and-batten-hunter-green-metal-siding-black-roof-02` is legible and reads
+   "Metal Master Roofing LLC · 276-385-5316". If the number is deliberately off the site, that
+   photo undoes it. Easy to swap or crop.
+3. **Google Business Profile** — see `13-google-business-profile.md` — normally expects a phone
+   number, and it is a major local-lead source for a contractor. Worth confirming before launch.
+4. Facebook is now the only fallback if the form breaks, and the form's failure message points
+   there.
+
 **Instruction:** "how do i put a map up, and connect my email what app should i use?"
 (plus the live deploy URL: `metal-master-roofing-…vercel.app`)
 **Applied as:** Two things, and one correction to an earlier answer.

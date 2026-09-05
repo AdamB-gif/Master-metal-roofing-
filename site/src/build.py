@@ -74,13 +74,13 @@ def build_home():
 
     why = f'''<section class="section-tint" id="why">
     <div class="container">
-      <div class="section-head"><h2>Why Neighbors Around Here Call Us First</h2></div>
+      <div class="section-head"><h2>Why Neighbors Around Here Come to Us First</h2></div>
       <div class="grid grid-3">
         <div>
           <h3>Local, and it shows.</h3>
           <p>We live and work in Tazewell County. We know what a mountain winter does to a roof,
           how the wind comes across the ridges, and which colors hold up on a house that gets
-          full afternoon sun. When you call, you're talking to somebody who's driven your road.</p>
+          full afternoon sun. When we call you back, you're talking to somebody who's driven your road.</p>
         </div>
         <div>
           <h3>Licensed and insured.</h3>
@@ -103,7 +103,7 @@ def build_home():
         <div>
           <h2>Where We Work</h2>
           <p>We're based in the Bluefield&ndash;Richlands&ndash;Pounding Mill area and work
-          throughout Tazewell County and into nearby West Virginia. {("If you're within about " + d.SERVICE_RADIUS + ", we'll come look at it.") if d.SERVICE_RADIUS else "If you're not sure whether you're in range, call us — it costs nothing to ask."}</p>
+          throughout Tazewell County and into nearby West Virginia. {("If you're within about " + d.SERVICE_RADIUS + ", we'll come look at it.") if d.SERVICE_RADIUS else "Not sure whether you're in range? Send the form and ask — it costs nothing."}</p>
           {t.link_list(d.AREAS_NAV + [("View All Service Areas", "/service-areas/")])}
         </div>
         {t.photo_placeholder("Service area map", "Map placeholder")}
@@ -146,7 +146,7 @@ def build_home():
     <div class="container">
       <div class="section-head"><h2>How It Works</h2></div>
       {t.steps_html([
-          ("Call or send the form", "Tell us where you are and what's going on with your roof."),
+          ("Send the form", "Tell us where you are and what's going on with your roof."),
           ("We come measure", "We get on the roof, measure it properly, and look for anything you can't see from the ground."),
           ("Written estimate", "A real number, in writing. No expiration date, no pressure."),
           ("We build it", "Scheduled around your timeline, cleaned up when we're done."),
@@ -164,8 +164,8 @@ def build_home():
     final_cta = f'''<section class="section-accent" id="final-cta">
     <div class="container text-center">
       <h2>Free Estimates in Tazewell County and Beyond</h2>
-      <p style="max-width:60ch;margin:0 auto var(--space-6);">Call us or send the form — either
-      way, the estimate is free and there's no pressure attached to it.</p>
+      <p style="max-width:60ch;margin:0 auto var(--space-6);">Send the form and we'll get back to you — the estimate
+      is free and there's no pressure attached to it.</p>
       <div class="cta-row" style="justify-content:center;">
         {t.phone_link(cls="btn btn-on-dark")}
         <a class="btn" style="background:var(--navy-900);color:var(--white);" href="/free-estimate/">Request Your Free Estimate</a>
@@ -569,7 +569,7 @@ def build_areas_hub():
 
     intro = f'''<section class="section-white">
     <div class="container prose">
-      <p>{d.SERVICE_AREA_SENTENCE} {("Generally, if you're within " + d.SERVICE_RADIUS + " of Pounding Mill, we'll come take a look.") if d.SERVICE_RADIUS else "Not sure if you're in range? Call us — it costs nothing to ask."}</p>
+      <p>{d.SERVICE_AREA_SENTENCE} {("Generally, if you're within " + d.SERVICE_RADIUS + " of Pounding Mill, we'll come take a look.") if d.SERVICE_RADIUS else "Not sure if you're in range? Send the form and ask — it costs nothing."}</p>
       {t.map_embed()}
     </div>
   </section>'''
@@ -698,7 +698,7 @@ def build_location_pages():
             different towns, same name, and we're clear about which is which.</p>
             <p>We install metal roofing, metal siding, and board &amp; batten on homes throughout
             Bluefield, from established in-town streets to newer construction on the outskirts.
-            Call us for a free, no-pressure estimate.</p>''',
+            Send the form for a free, no-pressure estimate.</p>''',
         quick_answer=("Bluefield's elevation means colder winters and more snow than lower parts of "
                        "the county — a real argument for a metal roof's snow-shedding surface and "
                        "long service life over asphalt that wears faster under freeze-thaw cycles."),
@@ -731,7 +731,7 @@ def build_location_pages():
             spots for small commercial work.</p>
             <p>We're about twenty minutes up the road in Pounding Mill, so we're in Richlands
             constantly. If you want somebody to look at your roof and tell you straight whether it
-            needs replacing or just needs work, call us. The estimate's free either way.</p>''',
+            needs replacing or just needs work, send us the form. The estimate's free either way.</p>''',
         quick_answer=("Richlands' river-valley humidity and fog put extra wear on older, coal-era "
                        "roofs faster than drier parts of the county — a metal roof and rust-resistant "
                        "galvalume coating hold up better against that moisture over the long run."),
@@ -761,7 +761,7 @@ def build_location_pages():
             territory for ag-panel and exposed-fastener metal roofing, pole-barn and outbuilding
             roofs, and board &amp; batten siding on both houses and barns.</p>
             <p>Because we're based right here, Pounding Mill gets the fastest response time and the
-            most day-to-day attention of anywhere we work. Call us — there's a good chance we're
+            most day-to-day attention of anywhere we work. Send the form — there's a good chance we're
             already close by.</p>''',
         quick_answer=("Pounding Mill's rural, agricultural land is the territory ag-panel metal "
                        "roofing and pole-barn buildings were built for — durable, affordable, and "
@@ -807,7 +807,7 @@ def build_location_pages():
         faq=[
             ("Do you work on historic homes near the courthouse?", "Yes — and we'll talk through which roofing profile looks right on an older house, not just what's cheapest."),
             ("Does Tazewell get more snow than other towns you serve?", "Generally yes, given the elevation — it's a factor in what we recommend."),
-            ("Do you serve Burke's Garden?", "It's within our general area — call to confirm for your specific location."),
+            ("Do you serve Burke's Garden?", "It's within our general area — send the form to confirm for your specific location."),
             ("What roofing profile suits a historic-style home?", "Standing seam's clean, traditional look is usually the better fit over an ag-panel profile."),
         ],
         nearby=[("North Tazewell, VA", "/service-areas/"), ("Claypool Hill, VA", "/service-areas/"),
@@ -825,7 +825,7 @@ def build_location_pages():
             <p>We install metal roofing, metal siding, and board &amp; batten on homes, barns, and
             small commercial buildings in and around Wytheville. The interstate crossroads brings a
             fair amount of storefront and small commercial property with it, and that's work we take
-            on too &mdash; projects up to $150,000. Call us for a free estimate and we'll confirm
+            on too &mdash; projects up to $150,000. Send the form for a free estimate and we'll confirm
             scheduling for your address.</p>''',
         quick_answer=("Wytheville's elevation brings real snow and heavy freeze\u2013thaw cycling most "
                        "winters \u2014 conditions that wear out asphalt shingles and back out exposed "
@@ -840,7 +840,7 @@ def build_location_pages():
             do on a sheltered in-town lot &mdash; and edge detail is where a cheap roof fails
             first.</p>''',
         faq=[
-            ("Do you travel to Wytheville?", "Yes \u2014 Wytheville is within the area we serve. Call us and we'll confirm scheduling for your address."),
+            ("Do you travel to Wytheville?", "Yes \u2014 Wytheville is within the area we serve. Send the form and we'll confirm scheduling for your address."),
             ("Does Wytheville's elevation change what roof you'd recommend?", "It pushes us toward standing seam on most homes \u2014 concealed fasteners and a smooth, snow-shedding surface hold up better through repeated freeze\u2013thaw cycles."),
             ("Do you do commercial work in Wytheville?", "Yes \u2014 storefronts, shops, and small offices, on projects up to $150,000."),
             ("Do you do barns and outbuildings out in Wythe County?", "Yes \u2014 pole barns, equipment sheds, and ag-panel roofing are regular work for us."),
@@ -878,7 +878,7 @@ def build_location_pages():
             panel is the sensible, cost-effective choice. We do both, and we'll tell you which one
             your building calls for.</p>''',
         faq=[
-            ("Do you travel to Abingdon?", "Yes \u2014 Abingdon is within the area we serve. Call us and we'll confirm scheduling for your address."),
+            ("Do you travel to Abingdon?", "Yes \u2014 Abingdon is within the area we serve. Send the form and we'll confirm scheduling for your address."),
             ("Can I put a metal roof on a home in the historic district?", "Often yes, but exterior changes in a designated historic district can require local review \u2014 check with the town first, and we'll work with whatever profile and color get approved."),
             ("What roof profile suits an older Abingdon home?", "Standing seam, usually \u2014 its clean, traditional lines suit older architecture better than an agricultural exposed-fastener panel."),
             ("Do you do barns and farm buildings around Washington County?", "Yes \u2014 pole barns, equipment sheds, and ag-panel roofing, alongside our residential work."),
@@ -1041,8 +1041,9 @@ def build_contact():
 
     left = f'''<div>
       <h2>Contact Us</h2>
-      <p>{t.phone_link()}</p>
-      <p>{t.email_text_link()}</p>
+      <p>The form is the way to reach us. It comes straight through, and we'll get back to
+      you with a real answer rather than a runaround. Tell us what's going on with your roof
+      and where you are, and we'll take it from there.</p>
       <p><strong>Hours:</strong> {t.hours_text()}</p>
       <p><strong>Response time:</strong> {("We typically call back within " + d.RESPONSE_TIME + ".") if d.RESPONSE_TIME else t.ph("Response time — to be confirmed")}</p>
       <p><a href="{d.FACEBOOK}">Find us on Facebook &rarr;</a></p>
@@ -1129,7 +1130,7 @@ def form_html(compact=False):
     </div>
     <button type="submit" class="btn btn-primary btn-block">Get My Free Estimate</button>
     <div class="form-status" id="form-status" role="alert" aria-live="polite"></div>
-    <p class="form-note">Would rather just talk? {t.phone_text_link()}.</p>
+    {f'<p class="form-note">Would rather just talk? {t.phone_text_link()}.</p>' if d.PHONE_E164 else ''}
   </form>'''
 
 
@@ -1148,7 +1149,7 @@ def build_free_estimate():
     whats_next = f'''<div>
       <h2>What Happens Next</h2>
       {t.steps_html([
-          ("You send this form or call us.", ""),
+          ("You send the form.", "Takes about a minute, and it comes straight to us."),
           (f"We call you back{(' within ' + d.RESPONSE_TIME) if d.RESPONSE_TIME else ''}.", "To set a time that works for you."),
           ("We come out and measure.", "Properly, on the roof — not guessed from the driveway."),
           ("You get a written estimate.", "No pressure, no expiration date, no salesman camped out in your living room."),
@@ -1207,7 +1208,7 @@ def build_thank_you():
 def build_404():
     body_html = f'''<section class="hero hero-page"><div class="container hero-inner text-center" style="width:100%;">
       <h1>Page Not Found</h1>
-      <p class="lede" style="margin:0 auto;">That page doesn't exist. Try the homepage, or call us directly.</p>
+      <p class="lede" style="margin:0 auto;">That page doesn't exist. Try the homepage, or request a free estimate.</p>
       <div class="cta-row" style="justify-content:center;margin-top:var(--space-6);">
         <a class="btn btn-on-dark" href="/">Back to Homepage</a>
         {t.phone_link(cls="btn btn-on-dark")}
@@ -1363,8 +1364,9 @@ def build_js():
         if (btn) { btn.disabled = false; btn.textContent = "Get My Free Estimate"; }
         var hp = document.querySelector(".header-phone");
         if (status) {
-          status.textContent = "Something went wrong sending that. Please call us instead" +
-            (hp ? " on " + hp.textContent.trim() : "") + ".";
+          status.textContent = hp
+            ? "Something went wrong sending that. Please call us instead on " + hp.textContent.trim() + "."
+            : "Something went wrong sending that. Please try again in a moment, or message us on Facebook.";
           status.className = "form-status error is-visible";
         }
       });

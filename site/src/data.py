@@ -324,7 +324,7 @@ def projects_by_category(cat):
 HOME_FAQ = [
     ("How much does a metal roof cost around here?",
      "It depends on panel type, roof pitch, and how many valleys and penetrations you've got, "
-     "but we'll give you a real range on the phone and an exact written number after we measure. "
+     "but we'll give you a real range when we get back to you, and an exact written number after we measure. "
      "We don't hide behind “it depends” — ask us."),
     ("Can you put a metal roof over my existing shingles?",
      "Often, yes — it depends on your local code, how many layers are already up there, and the "
@@ -342,5 +342,5 @@ HOME_FAQ = [
      "offices, and farm buildings are all in our range."),
     ("How far do you travel?",
      "We're based in the Bluefield–Richlands–Pounding Mill area and work throughout Tazewell "
-     "County and into nearby West Virginia. If you're not sure whether you're in range, call us."),
+     "County and into nearby West Virginia. If you're not sure whether you're in range, send the form and ask."),
 ]

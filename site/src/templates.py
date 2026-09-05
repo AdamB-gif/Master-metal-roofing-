@@ -40,20 +40,23 @@ def phone_display():
     return d.PHONE_DISPLAY or ph("Phone number")
 
 def phone_link(label=None, cls="btn btn-phone"):
-    label = label or (f"Call {d.PHONE_DISPLAY}" if d.PHONE_DISPLAY else "Call Us")
-    if d.PHONE_E164:
-        return f'<a class="{cls}" href="tel:{d.PHONE_E164}">{icon("phone")}{label}</a>'
-    return f'<span class="{cls}" aria-disabled="true" title="Phone number not yet confirmed">{icon("phone")}{ph("Phone number")}</span>'
+    # No phone on the site by owner's decision — the form is the only inbound
+    # channel. Render nothing at all rather than a dead placeholder button.
+    if not d.PHONE_E164:
+        return ""
+    label = label or f"Call {d.PHONE_DISPLAY}"
+    return f'<a class="{cls}" href="tel:{d.PHONE_E164}">{icon("phone")}{label}</a>'
 
 def phone_text_link():
     if d.PHONE_E164:
         return f'<a href="tel:{d.PHONE_E164}">{d.PHONE_DISPLAY}</a>'
-    return ph("Phone number")
+    return ""
 
 def email_text_link():
+    # Same as the phone: no public address, so nothing renders.
     if d.EMAIL:
         return f'<a href="mailto:{d.EMAIL}">{d.EMAIL}</a>'
-    return ph("Email address")
+    return ""
 
 def hours_text():
     return d.HOURS or ph("Business hours")
@@ -122,7 +125,7 @@ def trust_strip_html(dark=False):
 def cta_row(primary=("Get a Free Estimate", "/free-estimate/"), show_phone=True, on_dark=False):
     sec_cls = "btn-on-dark" if on_dark else "btn-phone"
     html = f'<div class="cta-row"><a class="btn btn-primary" href="{primary[1]}">{primary[0]}</a>'
-    if show_phone:
+    if show_phone and d.PHONE_E164:
         html += phone_link(cls=f"btn {sec_cls}")
     html += "</div>"
     return html
@@ -247,7 +250,7 @@ def header_html():
         </ul>
       </nav>
       <div class="header-actions">
-        <a class="header-phone" href="{('tel:' + d.PHONE_E164) if d.PHONE_E164 else '/contact/'}">{icon("phone")}{phone_display()}</a>
+        {f'<a class="header-phone" href="tel:{d.PHONE_E164}">{icon("phone")}{phone_display()}</a>' if d.PHONE_E164 else ''}
         <a class="btn btn-primary" href="/free-estimate/">Free Estimate</a>
         <button class="hamburger" id="hamburger-btn" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
           {icon("menu")}
@@ -274,14 +277,16 @@ def header_html():
       <li><a href="/contact/">Contact</a></li>
       <li><a href="/free-estimate/">Free Estimate</a></li>
     </ul>
-    {phone_link(cls="btn btn-secondary btn-block")}
+    {phone_link(cls="btn btn-secondary btn-block") or '<a class="btn btn-secondary btn-block" href="/free-estimate/">Get a Free Estimate</a>'}
   </div>'''
 
 def mobile_cta_bar():
-    call = phone_link("Call Now", "call") if d.PHONE_E164 else f'<span class="call" title="Phone not yet confirmed">{icon("phone")}Call Now</span>'
+    # With no phone, this is a single full-width estimate button. The flex
+    # children are `flex: 1 1 50%`, so a lone child grows to fill the pill.
+    call = phone_link("Call Now", "call") if d.PHONE_E164 else ""
     return f'''<div class="mobile-cta-bar">
     {call}
-    <a class="estimate" href="/free-estimate/">Free Estimate</a>
+    <a class="estimate" href="/free-estimate/">Get a Free Estimate</a>
   </div>'''
 
 def footer_html():
@@ -293,10 +298,13 @@ def footer_html():
         </a>
         <p>{d.ONE_LINER}</p>
         <ul class="footer-contact">
-          <li>{phone_text_link()}</li>
-          <li>{email_text_link()}</li>
-          <li>{hours_text()}</li>
-          <li><a href="{d.FACEBOOK}">Facebook &rarr;</a></li>
+          {"".join(f"<li>{item}</li>" for item in [
+              phone_text_link(),
+              email_text_link(),
+              hours_text(),
+              f'<a href="{d.FACEBOOK}">Facebook &rarr;</a>',
+              '<a href="/free-estimate/">Request a free estimate &rarr;</a>',
+          ] if item)}
         </ul>
         <p class="footer-license">{license_line()}</p>
       </div>
@@ -321,7 +329,7 @@ def footer_html():
 def dev_banner():
     return ('<div class="dev-banner">'
             '<strong>Development preview.</strong> Bracketed items like '
-            '<span class="fact-ph" style="color:#F2C6AC;border-color:#F2C6AC;">[Phone number]</span> '
+            '<span class="fact-ph" style="color:#F2C6AC;border-color:#F2C6AC;">[Business hours]</span> '
             'are placeholders — see <code>14-open-questions.md</code> for what the owner still needs to confirm.'
             '</div>')
 
