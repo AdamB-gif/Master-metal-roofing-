@@ -982,6 +982,7 @@ def build_gallery():
         {t.before_after_block("pewter")}
         {t.before_after_block("burgundy-a")}
         {t.before_after_block("burgundy-b")}
+        {t.before_after_block("charcoal")}
       </div>
     </div>
   </section>'''

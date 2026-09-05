@@ -35,11 +35,17 @@ charcoal roof, 24×24 carport, royal red roof), and swapped the hunter green boa
 house into the home page's "Board & Batten, Done in Metal" split section. Everything else flows
 into `/gallery/` automatically through the existing category filters.
 
-**Not paired as before/after:** the overhead worn-shingle shot (`roof-shingle-before-04`) and the
-overhead finished charcoal roof (`roof-charcoal-legacy-06`) look like they *could* be the same
-house, but the surroundings differ enough between the two frames that it isn't certain. Rather than
-publish a before/after claim that might be wrong, both run as standalone gallery photos. **Owner
-question: are these the same house?** If yes, they become a fourth before/after pair.
+**Before/after pairing — asked, then confirmed:** the overhead worn-shingle shot
+(`roof-shingle-before-04`) and the overhead finished charcoal roof (`roof-charcoal-legacy-06`)
+looked like they *could* be the same house, but the surroundings differ enough between the two
+frames that it wasn't certain from the photos alone, so both were published standalone and the
+question was put to the owner rather than guessing.
+
+**Owner answer (same day):** "yes they are before and afters." Promoted to the **fourth
+before/after pair** (`charcoal`, labelled "Worn Shingles to Textured Charcoal Legacy") and added to
+the Before & After section on `/gallery/`. The after photo's alt text now reads "the same home
+from above after replacement." Both drop out of the All Projects grid automatically, since
+`build_gallery()` excludes photos already shown as a pair.
 
 Town is still not claimed on any photo in either batch — open question #8 in
 `14-open-questions.md` still stands.

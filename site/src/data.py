@@ -253,12 +253,14 @@ PROJECTS = [
     dict(id="roof-charcoal-legacy-05", folder="projects", base="metal-roof-textured-charcoal-legacy-brick-home-05",
          w=1600, h=1200, max_w=1600, category="roofing",
          alt="Brick home with a new textured charcoal metal roof and white trim"),
-    dict(id="roof-charcoal-legacy-06", folder="projects", base="metal-roof-replacement-after-textured-charcoal-legacy-01",
-         w=1600, h=1412, max_w=1600, category="roofing",
-         alt="Overhead view of a brick home finished with a textured charcoal Legacy metal roof"),
     dict(id="roof-shingle-before-04", folder="projects", base="metal-roof-replacement-before-worn-shingle-brick-home-04",
          w=1200, h=1600, max_w=1200, category="roofing",
-         alt="Worn asphalt shingle roof and ridge caps photographed from above, before metal roof replacement"),
+         alt="Worn asphalt shingle roof and ridge caps seen from above, before metal roof replacement",
+         pair="charcoal", pair_role="before"),
+    dict(id="roof-charcoal-legacy-06", folder="projects", base="metal-roof-replacement-after-textured-charcoal-legacy-01",
+         w=1600, h=1412, max_w=1600, category="roofing",
+         alt="The same home from above after replacement, with a new textured charcoal Legacy metal roof",
+         pair="charcoal", pair_role="after"),
 
     # Royal red textured Legacy panel, exposed fastener.
     dict(id="roof-royal-red-01", folder="projects", base="metal-roof-royal-red-legacy-exposed-fastener-01",
@@ -294,6 +296,8 @@ BEFORE_AFTER_PAIRS = [
          before="roof-burgundy-before-01", after="roof-burgundy-after-01"),
     dict(key="burgundy-b", label="Worn Shingles to Burgundy Standing Seam",
          before="roof-burgundy-before-03", after="roof-burgundy-after-02"),
+    dict(key="charcoal", label="Worn Shingles to Textured Charcoal Legacy",
+         before="roof-shingle-before-04", after="roof-charcoal-legacy-06"),
 ]
 
 _PROJECTS_BY_ID = {p["id"]: p for p in PROJECTS}
